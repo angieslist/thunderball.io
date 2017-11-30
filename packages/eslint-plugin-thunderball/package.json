@@ -1,0 +1,16 @@
+{
+  "name": "eslint-plugin-thunderball",
+  "version": "0.0.0",
+  "license": "Apache-2.0",
+  "description": "ESLint rules for Thunderball applications",
+  "main": "lib/index.js",
+  "files": [
+    "lib/"
+  ],
+  "keywords": [
+    "eslint"
+  ],
+  "dependencies": {
+    "jsx-ast-utils": "^1.4.0"
+  }
+}

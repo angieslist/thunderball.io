@@ -1,0 +1,6 @@
+// Turn off browser specific globals, they should not exist here
+{
+  "env": {
+    "browser": false
+  }
+}

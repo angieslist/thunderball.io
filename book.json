@@ -1,0 +1,21 @@
+{
+  "root": "./docs",
+  "plugins": [
+    "back-to-top-button",
+    "numbered-headings",
+    "ace",
+    "codepen",
+    "toggle-chapters"
+  ],
+  "pluginsConfig": {
+    "fontsettings": {
+      "theme": "night",
+      "family": "sans",
+      "size": 2
+    },
+    "lunr": {
+      "maxIndexSize": 1000000,
+      "ignoreSpecialCharacters": false
+    }
+  }
+}

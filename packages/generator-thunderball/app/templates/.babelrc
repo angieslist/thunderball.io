@@ -1,0 +1,37 @@
+// Can be overwritten by babel configuration in the target folders
+{
+  "presets": [
+    "react",
+    ["es2015"],
+    "stage-0"
+  ],
+  "plugins": [
+    [
+      "transform-imports", {
+        "react-router": {
+          "transform": "react-router/lib/${member}",
+          "preventFullImport": true
+        },
+        "recompose": {
+          "transform": "recompose/${member}",
+          "preventFullImport": true
+        }
+      }
+    ],
+    "transform-runtime",
+    "add-module-exports",
+    "lodash",
+    "jsx-control-statements"
+  ],
+  "env": {
+    "production": {
+      "plugins": [
+        "jsx-control-statements",
+        "transform-react-constant-elements",
+        "transform-react-inline-elements",
+        "transform-react-remove-prop-types",
+        "transform-react-pure-class-to-function"
+      ]
+    }
+  }
+}

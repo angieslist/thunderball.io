@@ -1,0 +1,17 @@
+.eslintcache
+node_modules/
+npm-debug.log
+test-report.xml
+test-results.xml
+jest_0/
+.idea/
+*.iml
+.vscode/
+lib/
+build-info.json
+.DS_Store
+lerna-debug.log
+coverage/
+typings/
+_book/
+package-lock.json

@@ -1,0 +1,17 @@
+{
+  "extends": "airbnb",
+  "plugins": [
+    "jsx-control-statements",
+    "jest"
+  ],
+  "rules": {
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/valid-expect": "warn"
+  },
+  "env": {
+    "jsx-control-statements/jsx-control-statements": true,
+    "jest/globals": true
+  }
+}

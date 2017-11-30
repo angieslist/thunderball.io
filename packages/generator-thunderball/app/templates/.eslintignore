@@ -1,0 +1,6 @@
+android/**
+build/**
+ios/**
+lib/**
+node_modules/**
+*.generated.js

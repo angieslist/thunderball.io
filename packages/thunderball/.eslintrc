@@ -1,0 +1,34 @@
+{
+  "parser": "babel-eslint",
+  "plugins": [
+    "jsx-control-statements"
+  ],
+  "rules": {
+    "no-console": 0, // http://eslint.org/docs/rules/no-console#when-not-to-use-it
+    // TODO remove custom rules over time
+    "array-callback-return": 1,
+    "global-require": 1,
+    "import/extensions": 1,
+    "import/first": 1,
+    "import/no-dynamic-require": 1,
+    "max-len": 1,
+    "no-mixed-operators": 1,
+    "no-template-curly-in-string": 1, // probably is a valid use but need to inline disable error
+    "no-underscore-dangle": 1,
+    "no-unused-vars": 1,
+    "react/forbid-prop-types": 1,
+    "react/jsx-filename-extension": 1,
+    "react/require-default-props": 1
+  },
+  "globals": {
+    "webpackIsomorphicTools": true,
+    // add isomorphic-fetch globals
+    "fetch": false,
+    "Response": false,
+    "Headers": false,
+    "Request": false
+  },
+  "env": {
+    "jsx-control-statements/jsx-control-statements": true
+  }
+}

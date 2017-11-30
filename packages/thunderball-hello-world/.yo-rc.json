@@ -1,0 +1,10 @@
+{
+  "generator-thunderball": {
+    "promptValues": {
+      "displayName": "Thunderball hello world",
+      "name": "thunderball-hello-world",
+      "description": "Example Thunderball project for demo and integration testing",
+      "installDependencies": false
+    }
+  }
+}

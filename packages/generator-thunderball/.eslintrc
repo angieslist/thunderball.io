@@ -1,0 +1,10 @@
+{
+  // a few extra settings to make sure code is es5 since we're not currently transpiling generator code
+  "extends": "airbnb/legacy",
+  "env": {
+    "es6": false
+  },
+  "parserOptions": {
+    "ecmaVersion": 5
+  }
+}

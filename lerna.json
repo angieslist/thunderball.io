@@ -1,0 +1,15 @@
+{
+  "version": "0.1.1",
+  "packages": [
+    "packages/*"
+  ],
+  "commands": {
+    "publish": {
+      "ignore": [
+        "*.md"
+      ]
+    }
+  },
+  "hoist": "**",
+  "lerna": "2.2.0"
+}

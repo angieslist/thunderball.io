@@ -1,0 +1,35 @@
+{
+  "name": "<%= name %>",
+  "private": true,
+  "version": "1.0.0",
+  "description": "<%= description %>",
+  "main": "index.js",
+  "scripts": {
+    "start": "gulp",
+    "build": "gulp build -p",
+    "test": "jest"
+  },
+  "dependencies": {
+    "prop-types": "^15.5.8",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-helmet": "^5.0.3",
+    "react-router": "^3.0.5",
+    "recompose": "^0.23.1",
+    "thunderball": "*"
+  },
+  "devDependencies": {
+    "enzyme": "^2.9.1",
+    "enzyme-to-json": "^2.0.0",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jest": "^21.0.2",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-jsx-control-statements": "^2.2.0",
+    "eslint-plugin-react": "^7.3.0",
+    "eslint-plugin-thunderball": "*",
+    "gulp": "^3.9.1",
+    "jest": "^21.1.0",
+    "react-test-renderer": "^15.5.4"
+  }
+}

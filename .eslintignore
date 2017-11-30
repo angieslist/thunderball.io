@@ -1,0 +1,7 @@
+**/coverage/**
+**/docs/**
+**/node_modules/**
+**/lib/**
+packages/generator-thunderball/**/templates/**
+**/build/**
+*.generated.js

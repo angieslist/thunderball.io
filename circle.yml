@@ -1,0 +1,55 @@
+machine:
+  node:
+    version: 8
+  environment:
+    PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
+
+dependencies:
+  cache_directories:
+    - node_modules
+    - ./packages/eslint-plugin-thunderball/node_modules
+    - ./packages/generator-thunderball/node_modules
+    - ./packages/thunderball-client/node_modules
+    - ./packages/thunderball-hello-world/node_modules
+    - ./packages/thunderball/node_modules
+
+  override:
+    - npm config set package-lock false
+    - npm install
+    - npm run bootstrap
+    - NODE_ENV=production npm run build
+
+test:
+  override:
+    - npm run test-ci
+    - cd ./packages/thunderball-hello-world && gulp build -p && cd ../..
+
+  post:
+    - cp -v test-report.xml $CIRCLE_TEST_REPORTS
+    - cp -vR coverage $CIRCLE_ARTIFACTS
+
+deployment:
+  master:
+    branch: master
+    owner: angieslist
+    commands:
+      - npm config set email thunderball@angieslist.com
+      - npm config set _auth $NPM_TOKEN
+      - echo "Skipping lerna publish --skip-git --repo-version=$(node ./scripts/printRepoVersion) --yes"
+  wip:
+    branch: /wip.*/
+    owner: angieslist
+    commands:
+      - echo "Skipping publishing for WIP branch"
+  canary:
+    branch: /.*/
+    owner: angieslist
+    commands:
+      - npm config set email thunderball@angieslist.com
+      - npm config set _auth $NPM_TOKEN
+      - echo "Skipping lerna publish --npm-tag=canary --skip-git --repo-version=$(node ./scripts/printRepoVersion)-${CIRCLE_BRANCH}-SNAPSHOT.${CIRCLE_BUILD_NUM} --yes"
+
+general:
+  branches:
+    ignore:
+      - gh-pages

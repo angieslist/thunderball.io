@@ -4,11 +4,7 @@
 
 ## What is Thunderball?
 
-Thunderball is a slightly opinionated server and client library for building rich applications in NodeJs, ReactJs, and Redux. Thunderball attempts to use industry standard libraries instead of reinventing things. However, stitching together these libraries on your own can be tedious and lead to confusion since there are many ways to do things.
-
-The primary development units in Thunderball are called "Ions". Thunderball Ions are really just plugins/modules and are used to create web pages, express middleware, APIs, serve static assets, etc. Modules are built to be autonomous so that different developers and teams can work with a good level of code isolation.
-
-Thunderball is initially targeting web applications. However, the build tools and many of the client library features could be extended to `react-native`, `electron`, and other platforms. We will be looking to expand to other platforms in the future.
+Thunderball is an opinionated application server and client library for building rich applications using javascript. Thunderball takes responsibility for many of the common setup tasks in getting a modern application up and running quickly. Thunderball is focused on the frontend experience, although it does have server side facilities, and it has been designed to work best when delegating backend work to an ecosystem of microservices. Thunderball also provides a quick and interactive developer experience that includes conveniences like hot-loading of local changes which would ordinarily need to be setup manually.
 
 ## Getting Started
 
@@ -21,8 +17,10 @@ npm install -g yo
 # install the thunderball generator
 npm install -g generator-thunderball
 
+# create a directory for your app
+mkdir hello-thunderball && cd hello-thunderball
+
 # make a new thunderball project
-mkdir MYAPP && cd MYAPP
 yo thunderball
 
 # compile and run the new app
@@ -33,9 +31,13 @@ npm start
 
 ## Why Thunderball?
 
-It can be difficult to create an application from scratch and even more difficult to decide what libraries to use and how they will interact with each other.
-
 Unlike other "bootstrapping" frameworks out there for ReactJs applications, Thunderball is a platform that is meant to live under your application and _get out of your way_. There are numerous extension points to bend Thunderball to your will and in the end, you have control over how your application will work.
+
+Thunderball attempts to use industry standard libraries and tools like express and react that many developers are already familiar with. Stitching together these libraries on your own can be tedious and lead to confusion since there are many ways to do even the simplest things, and after you have everything configured just right there is not an obvious way to go about reusing your setup between multiple applications. Thunderball solves these problems by stitching together the base application stack for you with sensible defaults, leaving you free to focus on the actual work of creating your application.
+
+The primary development units in Thunderball are called "Ions". Thunderball Ions are really just plugins/modules and are used to create web pages, express middleware, APIs, serve static assets, etc. Modules are built to be autonomous so that different developers and teams can work with a good level of code isolation.
+
+Thunderball is initially targeting web applications. However, the build tools and many of the client library features could be extended to `react-native`, `electron`, and other platforms. We will be looking to expand to other platforms in the future.
 
 ## What Major Libraries does Thunderball use?
 
@@ -69,6 +71,4 @@ Unlike other "bootstrapping" frameworks out there for ReactJs applications, Thun
 
 * [Jest](https://facebook.github.io/jest/): A Facebook JavaScript and React testing framework
 * [Enzyme](https://github.com/airbnb/enzyme): A testing library specifically for React that makes it easier to assert, manipulate, and traverse your React Component output. It's meant to be intuitive and flexible by mimicking jQuery's API for DOM manipulation and traversal.
-
-
 

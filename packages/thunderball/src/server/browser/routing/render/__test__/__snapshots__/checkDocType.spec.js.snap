@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test HTTP Server DOCTYPE It should contain the correct DOCTYPE 1`] = `"<!DOCTYPE html>"`;
+
+exports[`Test HTTP Server DOCTYPE It should contain the correct DOCTYPE when streaming 1`] = `"<!DOCTYPE html>"`;

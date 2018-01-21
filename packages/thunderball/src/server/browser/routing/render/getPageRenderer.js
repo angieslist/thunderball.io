@@ -5,7 +5,7 @@ import Helmet from 'react-helmet';
 import Shell from 'thunderball-client/lib/render/Shell';
 import serialize from 'serialize-javascript';
 import _ from 'lodash';
-import { template } from 'rapscallion';
+import { render, template } from 'rapscallion';
 import memoize from 'memoizee';
 
 const MEMOIZE_MAX_AGE = _.get(constants.APP_CONFIG, 'ssr.caching.memoizeMaxAge', 3600000);
@@ -64,6 +64,7 @@ const getPageRenderer = (store, renderProps, req, page, name, cacheKey, ssrConfi
   const appBody = _.get(ssrConfig, 'renderBody', true) !== false ?
     <Shell {...{ store, renderProps }} pageProps={page.pageProps} defaultLocale={_.get(constants.APP_CONFIG, 'i18n.defaultLocale')} />
     : '';
+  const componentRenderer = render(appBody);
 
   const shouldMemoize = constants.IS_PRODUCTION && (_.get(ssrConfig, 'caching.memoize', true) !== false);
 
@@ -76,7 +77,7 @@ const getPageRenderer = (store, renderProps, req, page, name, cacheKey, ssrConfi
 
   // Generate the actual HTML page use helmet components, app css, app js, and the generate body
   // State gets set as __INITIAL_STATE__ before the rest of the beforeBody scripts come in
-  return template`<!DOCTYPE html><html ${html.htmlAttrs}><head>${html.head}</head><body ${html.bodyAttrs}>${`<script type="text/javascript">window.__INITIAL_STATE__ = ${serialize(state)};</script>`}${html.scripts.beforeBody.join('')}<div id="app">${appBody}</div>${html.scripts.afterBody.join('')}</body></html>`;
+  return template`<html ${html.htmlAttrs}><head>${html.head}</head><body ${html.bodyAttrs}>${`<script type="text/javascript">window.__INITIAL_STATE__ = ${serialize(state)};</script>`}${html.scripts.beforeBody.join('')}<div id="app">${componentRenderer}</div><script>document.querySelector("#app>[data-reactroot]").setAttribute("data-react-checksum", "${() => componentRenderer.checksum()}")</script>${html.scripts.afterBody.join('')}</body></html>`;
 };
 
 export default getPageRenderer;

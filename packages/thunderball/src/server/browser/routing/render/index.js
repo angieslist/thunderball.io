@@ -57,7 +57,7 @@ const getData = (initialState, createRoutes, injectors, pageProps, shouldMemoize
   return result;
 };
 
-const getSsrConfig = (pageConfig = {}, appConfig = constants.APP_CONFIG) => {
+const getSsrConfig = (pageConfig, appConfig) => {
   const ssrConfig = { ...(appConfig.ssr || {}), ...(pageConfig.ssr || {}) };
   ssrConfig.caching = { ...(_.get(appConfig, 'ssr.caching') || {}), ...(_.get(pageConfig, 'ssr.caching') || {}) };
   return ssrConfig;
@@ -68,7 +68,7 @@ const render = (page, name, createRoutes, injectors = []) => {
   // see thunderball-client/common/pageBuilder for the client side version.
   // These need to remain somewhat the same.
 
-  const ssrConfig = getSsrConfig();
+  const ssrConfig = getSsrConfig(page, constants.APP_CONFIG);
 
   return (req, res, next) => {
     const hrstart = process.hrtime();
@@ -139,11 +139,12 @@ const render = (page, name, createRoutes, injectors = []) => {
                 if (!_.get(ssrConfig, 'useStreaming')) {
                   pageRenderer.toPromise()
                     .then((html) => {
-                      res.send(html);
+                      res.send(`<!DOCTYPE html>${html}`);
                     }).catch((e) => {
                       next(e);
                     });
                 } else {
+                  res.write('<!DOCTYPE html>');
                   pageRenderer.toStream()
                     .pipe(res);
                 }

@@ -43,8 +43,6 @@ describe('getPageRenderer.js', () => {
       const pageRenderer = getPageRenderer(store, renderProps, req, page, name, cacheKey, ssrConfig);
       expect(pageRenderer.toPromise).toBeInstanceOf(Function);
       const html = await pageRenderer.toPromise();
-      // console.log(html);
-      expect(html).toMatch(/^<!DOCTYPE html.+<\/html>$/);
       expect(html).toMatchSnapshot();
     });
   });

@@ -3,7 +3,6 @@ import webpack from 'webpack';
 import webpackDev from 'webpack-dev-middleware';
 import webpackHot from 'webpack-hot-middleware';
 import makeWebpackConfig from './makeConfig';
-import thunderballMiddleware from '../thunderballMiddleware';
 import express from 'express';
 import constants from '../constants';
 import ip from 'ip';
@@ -20,7 +19,6 @@ const hotHost = constants.APP_CONFIG.remoteHotReload
   : '127.0.0.1';
 
 const app = express();
-app.use(thunderballMiddleware);
 let webpackConfig = makeWebpackConfig(true, hotPort, hotHost);
 
 // Check if appConfig defines a webpack configuration

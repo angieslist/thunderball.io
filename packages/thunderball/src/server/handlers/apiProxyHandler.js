@@ -1,13 +1,7 @@
-import compression from 'compression';
-import express from 'express';
 import logger from '../logger';
-import thunderballMiddleware from '../../thunderballMiddleware';
 import apiProxy from './apiProxy';
 import constants from '../../constants';
-
-const app = express();
-app.use(thunderballMiddleware);
-app.use(compression());
+import app from '../app';
 
 // Determine api proxy routes
 ((constants.APP_CONFIG || {}).proxyRoutes || []).forEach((proxyRoute) => {

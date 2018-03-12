@@ -1,13 +1,7 @@
-import compression from 'compression';
-import express from 'express';
 import logger from '../logger';
 import constants from '../../constants';
 import path from 'path';
-import thunderballMiddleware from '../../thunderballMiddleware';
-
-const app = express();
-app.use(thunderballMiddleware);
-app.use(compression());
+import app from '../app';
 
 // Apply ion specified middleware
 const applyMiddlewares = (constants.APP_IONS || [])

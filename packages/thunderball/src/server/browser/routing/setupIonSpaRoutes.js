@@ -1,4 +1,3 @@
-import express from 'express';
 import logger from '../../logger';
 import render from './render';
 import path from 'path';

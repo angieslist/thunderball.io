@@ -23,6 +23,7 @@ test:
   override:
     - npm run test-ci
     - cd ./packages/thunderball-hello-world && gulp build -p && cd ../..
+    - npm run test-e2e
 
   post:
     - cp -v test-report.xml $CIRCLE_TEST_REPORTS

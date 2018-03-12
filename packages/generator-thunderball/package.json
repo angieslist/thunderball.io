@@ -22,11 +22,5 @@
   "devDependencies": {
     "yeoman-assert": "^3.0.0",
     "yeoman-test": "^1.6.0"
-  },
-  "jest": {
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/templates/"
-    ]
   }
 }

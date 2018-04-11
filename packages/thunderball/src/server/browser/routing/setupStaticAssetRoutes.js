@@ -1,6 +1,6 @@
 import express from 'express';
-import logger from '../../logger';
 import _ from 'lodash';
+import logger from '../../logger';
 import constants from '../../../constants';
 
 export default function setupStaticAssetRoutes(app) {

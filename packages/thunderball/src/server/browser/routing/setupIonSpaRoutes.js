@@ -1,8 +1,8 @@
+import path from 'path';
+import _ from 'lodash';
 import logger from '../../logger';
 import render from './render';
-import path from 'path';
 import constants from '../../../constants';
-import _ from 'lodash';
 
 /*
 * Gets the path from an ion file

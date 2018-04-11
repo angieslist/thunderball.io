@@ -1,9 +1,9 @@
 import React from 'react';
 import request from 'supertest';
 import express from 'express';
-import SPARender from '../index';
 import { Helmet } from 'react-helmet';
-import { Route, IndexRoute } from 'react-router';
+import { Route } from 'react-router';
+import SPARender from '../index';
 
 const createRoutes = () => (
   <Route component={null} path="/" />

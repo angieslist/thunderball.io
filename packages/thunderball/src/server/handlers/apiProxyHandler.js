@@ -1,4 +1,3 @@
-import logger from '../logger';
 import apiProxy from './apiProxy';
 import constants from '../../constants';
 import app from '../app';

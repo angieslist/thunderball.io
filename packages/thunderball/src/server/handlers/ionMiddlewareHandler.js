@@ -1,6 +1,6 @@
+import path from 'path';
 import logger from '../logger';
 import constants from '../../constants';
-import path from 'path';
 import app from '../app';
 
 // Apply ion specified middleware

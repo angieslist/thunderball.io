@@ -1,22 +1,18 @@
-import React from 'react';
-import logger from '../../../logger';
-import constants from '../../../../constants';
 import { createMemoryHistory, match } from 'react-router';
 import url from 'url';
 import _ from 'lodash';
 import memoize from 'memoizee';
-
-const MEMOIZE_MAX_AGE = _.get(constants.APP_CONFIG, 'ssr.caching.memoizeMaxAge', 3600000);
-
-import getInitialState from './getInitialState';
 import getStoreAndRoutes from 'thunderball-client/lib/render/getStoreAndRoutes';
+import logger from '../../../logger';
+import constants from '../../../../constants';
+import getInitialState from './getInitialState';
 import getPageRenderer from './getPageRenderer';
 import notFoundHandler from '../../../handlers/notFoundHandler';
-
-const { setCacheStrategy } = require('rapscallion');
-
 // This is running on the server, do not allow arbitrary ajax requests.
 import '../../../noBlindFetchOnServer';
+
+const MEMOIZE_MAX_AGE = _.get(constants.APP_CONFIG, 'ssr.caching.memoizeMaxAge', 3600000);
+const { setCacheStrategy } = require('rapscallion');
 
 // Determine if a rapscallion cache strategy was defined in config.js
 const getCacheStrategy = _.get(constants.APP_CONFIG, 'ssr.caching.getCacheStrategy');

@@ -48,7 +48,8 @@ gulp.task('build-info', () => {
           buildTimestamp: new Date().toISOString(),
           gitBranch: branch,
           gitCommit: commit,
-          repository: (process.env.CIRCLE_PROJECT_REPONAME || config.name || packageFile.name).toUpperCase(),
+          repository: (process.env.CIRCLE_PROJECT_REPONAME || config.name || packageFile.name)
+            .toUpperCase(),
           build: process.env.CIRCLE_BUILD_NUM || -1,
           instigator: process.env.CIRCLE_USERNAME || '',
         }, null, '  '));

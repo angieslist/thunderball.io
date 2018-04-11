@@ -1,12 +1,11 @@
 import React from 'react';
-import logger from '../../../logger';
-import constants from '../../../../constants';
 import Helmet from 'react-helmet';
 import Shell from 'thunderball-client/lib/render/Shell';
 import serialize from 'serialize-javascript';
 import _ from 'lodash';
 import { render, template } from 'rapscallion';
 import memoize from 'memoizee';
+import constants from '../../../../constants';
 
 const MEMOIZE_MAX_AGE = _.get(constants.APP_CONFIG, 'ssr.caching.memoizeMaxAge', 3600000);
 

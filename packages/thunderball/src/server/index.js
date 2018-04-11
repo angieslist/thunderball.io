@@ -7,7 +7,6 @@ require('isomorphic-fetch');
 const constants = require('../constants');
 const _ = require('lodash');
 const logger = require('./logger');
-const path = require('path');
 
 // Make sure the environment is set
 if (!process.env.NODE_ENV) {

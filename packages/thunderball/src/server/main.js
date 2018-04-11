@@ -1,9 +1,9 @@
-import logger from './logger';
 import compression from 'compression';
+import _ from 'lodash';
+import logger from './logger';
 import app from './app';
 import constants from '../constants';
 import thunderballMiddleware from '../thunderballMiddleware';
-import _ from 'lodash';
 
 app.use(thunderballMiddleware);
 app.use(compression());

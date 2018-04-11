@@ -1,5 +1,5 @@
 import 'isomorphic-fetch';
-import '../noBlindFetchOnServer.js';
+import '../noBlindFetchOnServer';
 
 describe('noBlindFetchOnServer', () => {
   it('should prevent execution a fetch call', () => {

@@ -1,8 +1,9 @@
-import configureStore from './configureStore';
 import { routerMiddleware, syncHistoryWithStore } from 'react-router-redux';
+import configureStore from './configureStore';
 
 /* eslint max-params: 0 */ // this is ok for internal methods
-export default function getStoreAndRoutes(initialState, createRoutes, historyType, historySyncOptions, injectors = [], pageProps = {}) {
+export default function getStoreAndRoutes(
+  initialState, createRoutes, historyType, historySyncOptions, injectors = [], pageProps = {}) {
   // Injection point: beforePageMounted
   injectors
     .filter(injector => injector.beforePageMounted)

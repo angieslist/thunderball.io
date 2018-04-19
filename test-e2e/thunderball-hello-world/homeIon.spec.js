@@ -1,5 +1,14 @@
 import fetch from 'node-fetch';
 
+function normalizeText(text) {
+  // normalize hashed assets
+  return text.replace(/[\d\w]{7,}(?=\.js|\.css)/g, 'TEST-HASH')
+    // normalize app version
+    .replace(/appVersion":"\d+\.\d+\.\d+/, 'appVersion":"TEST-VERSION')
+    // normalize data-react-checksum
+    .replace(/-?\d{7,}/g, 'TEST-CHECKSUM');
+}
+
 function getHeadersObject(headers) {
   const headersObj = {};
   headers.forEach((value, key) => {
@@ -23,9 +32,9 @@ describe('homeIon', () => {
         'transfer-encoding': 'chunked',
         vary: 'Accept-Encoding',
         'x-powered-by': 'Thunderball',
-
       });
-      expect(await response.text()).toMatchSnapshot();
+      const text = normalizeText(await response.text());
+      expect(text).toMatchSnapshot();
     });
   });
 });

@@ -11,7 +11,7 @@
     "yeoman-generator",
     "react"
   ],
-  "homepage": "thunderball.io",
+  "homepage": "http://thunderball.io",
   "repository": "angieslist/thunderball.io",
   "dependencies": {
     "chalk": "^1.1.3",

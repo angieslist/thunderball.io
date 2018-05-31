@@ -10,6 +10,8 @@
   "keywords": [
     "eslint"
   ],
+  "homepage": "http://thunderball.io",
+  "repository": "angieslist/thunderball.io",
   "dependencies": {
     "jsx-ast-utils": "^1.4.0"
   }

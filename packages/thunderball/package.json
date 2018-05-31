@@ -6,6 +6,8 @@
   "files": [
     "lib/"
   ],
+  "homepage": "http://thunderball.io",
+  "repository": "angieslist/thunderball.io",
   "engines": {
     "node": ">=6"
   },

@@ -34,3 +34,6 @@ npm start
 It can be difficult to create an application from scratch and even more difficult to decide what libraries to use and how they will interact with each other.
 
 Unlike other "bootstrapping" frameworks out there for ReactJs applications, Thunderball is a platform that is meant to live under your application and *get out of your way*.  There are numerous extension points to bend Thunderball to your will and in the end, you have control over how your application will work.
+
+## Additional Documentation
+Learn more about using Thunderball at http://thunderball.io

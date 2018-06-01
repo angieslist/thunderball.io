@@ -1,5 +1,5 @@
-import getPageRenderer, { getHtmlProperties } from '../getPageRenderer';
 import { Helmet } from 'react-helmet';
+import getPageRenderer, { getHtmlProperties } from '../getPageRenderer';
 
 describe('getPageRenderer.js', () => {
   let webpackIsomorphicTools;
@@ -40,11 +40,11 @@ describe('getPageRenderer.js', () => {
       const name = 'testPage';
       const cacheKey = null;
       const ssrConfig = null;
-      const pageRenderer = getPageRenderer(store, renderProps, req, page, name, cacheKey, ssrConfig);
+      const pageRenderer = getPageRenderer(
+        store, renderProps, req, page, name, cacheKey, ssrConfig,
+      );
       expect(pageRenderer.toPromise).toBeInstanceOf(Function);
       const html = await pageRenderer.toPromise();
-      // console.log(html);
-      expect(html).toMatch(/^<!DOCTYPE html.+<\/html>$/);
       expect(html).toMatchSnapshot();
     });
   });

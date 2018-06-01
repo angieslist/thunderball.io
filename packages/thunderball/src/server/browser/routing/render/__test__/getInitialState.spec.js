@@ -1,4 +1,4 @@
-import getInitialState, { getClientConfig } from '../getInitialState.js';
+import getInitialState, { getClientConfig } from '../getInitialState';
 
 describe('getClientConfig', () => {
   it('should get the expected keys', () => {
@@ -70,10 +70,8 @@ describe('getInitialState', () => {
   it('should use custom getInitialState from config.js', () => {
     const config = {
       ssr: {
-        getInitialState: (req, appConfig) => new Promise((resolve, reject) => {
-          resolve({
-            appConfig: 'abc',
-          });
+        getInitialState: () => Promise.resolve({
+          appConfig: 'abc',
         }),
       },
     };
@@ -92,10 +90,8 @@ describe('getInitialState', () => {
 
   it('should use custom getInitialState from ion manifest', () => {
     const ssr = {
-      getInitialState: (req, appConfig) => new Promise((resolve, reject) => {
-        resolve({
-          manifest: 1234,
-        });
+      getInitialState: () => Promise.resolve({
+        manifest: 1234,
       }),
     };
     const req = {
@@ -114,18 +110,14 @@ describe('getInitialState', () => {
   it('should use custom getInitialState from both config.js and ion manifest', () => {
     const config = {
       ssr: {
-        getInitialState: (req, appConfig) => new Promise((resolve, reject) => {
-          resolve({
-            appConfig: 'abc',
-          });
+        getInitialState: () => Promise.resolve({
+          appConfig: 'abc',
         }),
       },
     };
     const ssr = {
-      getInitialState: (req, appConfig) => new Promise((resolve, reject) => {
-        resolve({
-          manifest: 1234,
-        });
+      getInitialState: () => Promise.resolve({
+        manifest: 1234,
       }),
     };
     const req = {

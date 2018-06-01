@@ -1,7 +1,7 @@
 // Wrapper around winston some default settings
 // and the ability to set logging level and basic loggers from environment variables
-import constants from '../constants';
 import winston from 'winston';
+import constants from '../constants';
 
 const levels = {
   error: 0,
@@ -31,8 +31,8 @@ const stringFormatter = (options) => {
   return messagePieces.join(' ');
 };
 
-// Create default winston configurtion
-const getDefaultConfig = (config) => {
+// Create default winston configuration
+const getDefaultConfig = () => {
   const logLevel = process.env.LOGGING_LEVEL ||
     (constants.IS_PRODUCTION ? 'info' : 'trace');
   const format = process.env.LOGGING_FORMATTER || 'string';

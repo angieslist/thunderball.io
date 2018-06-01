@@ -1,8 +1,8 @@
 /* This is the webpack build used in production mode */
 import gutil from 'gulp-util';
-import makeWebpackConfig from './makeConfig';
 import webpack from 'webpack';
 import fs from 'fs';
+import makeWebpackConfig from './makeConfig';
 import constants from '../constants';
 
 export default function build(callback) {

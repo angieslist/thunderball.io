@@ -2,16 +2,14 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import autoprefixer from 'autoprefixer';
 import path from 'path';
 import fs from 'fs';
-import os from 'os';
 import webpack from 'webpack';
 import WebpackIsomorphicToolsPlugin from 'webpack-isomorphic-tools/plugin';
-import CommonsChunkPlugin from 'webpack/lib/optimize/CommonsChunkPlugin';
+import Visualizer from 'webpack-visualizer-plugin';
+import _ from 'lodash';
 import webpackIsomorphicAssets from './assets';
 import constants from '../constants';
 import getIndexFileText from './getIndexFileText';
 import getStylesLoaders from './getStylesLoaders';
-import Visualizer from 'webpack-visualizer-plugin';
-import _ from 'lodash';
 
 const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(webpackIsomorphicAssets);
 

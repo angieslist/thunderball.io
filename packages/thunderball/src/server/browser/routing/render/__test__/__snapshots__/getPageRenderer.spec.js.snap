@@ -3,17 +3,82 @@
 exports[`getPageRenderer.js getHtmlProperties gets HTML properties 1`] = `
 Object {
   "bodyAttrs": "",
-  "head": "<title data-react-helmet=\\"true\\"></title><link href='commonStyle' rel='stylesheet' key='0' /><link href='testStyle' rel='stylesheet' key='1' />",
+  "head": 
+<title data-react-helmet="true">
+</title>
+<link href="commonStyle"
+      rel="stylesheet"
+      key="0"
+>
+<link href="testStyle"
+      rel="stylesheet"
+      key="1"
+>
+,
   "htmlAttrs": "",
   "scripts": Object {
     "afterBody": Array [
-      "<script type=\\"text/javascript\\" src=\\"https://cdn.polyfill.io/v2/polyfill.min.js?features=\\"></script>",
-      "<script type=\\"text/javascript\\" src=\\"commonJs\\"></script>",
-      "<script type=\\"text/javascript\\" src=\\"testJs\\"></script>",
+      
+<script type="text/javascript"
+        src="https://cdn.polyfill.io/v2/polyfill.min.js?features="
+>
+</script>
+,
+      
+<script type="text/javascript"
+        src="commonJs"
+>
+</script>
+,
+      
+<script type="text/javascript"
+        src="testJs"
+>
+</script>
+,
     ],
     "beforeBody": Array [],
   },
 }
 `;
 
-exports[`getPageRenderer.js getPageRenderer returns rapscallion Renderer 1`] = `"<!DOCTYPE html data-react-checksum=\\"-944392483\\"><html ><head><title data-react-helmet=\\"true\\"></title><link href='commonStyle' rel='stylesheet' key='0' /><link href='testStyle' rel='stylesheet' key='1' /></head><body ><script type=\\"text/javascript\\">window.__INITIAL_STATE__ = undefined;</script><div id=\\"app\\"><!-- react-empty: 1 --></div><script type=\\"text/javascript\\" src=\\"https://cdn.polyfill.io/v2/polyfill.min.js?features=\\"></script><script type=\\"text/javascript\\" src=\\"commonJs\\"></script><script type=\\"text/javascript\\" src=\\"testJs\\"></script></body></html>"`;
+exports[`getPageRenderer.js getPageRenderer returns rapscallion Renderer 1`] = `
+
+<html data-react-checksum="-172369429">
+  <head>
+    <title data-react-helmet="true">
+    </title>
+    <link href="commonStyle"
+          rel="stylesheet"
+          key="0"
+    >
+    <link href="testStyle"
+          rel="stylesheet"
+          key="1"
+    >
+  </head>
+  <body>
+    <script type="text/javascript">
+      window.__INITIAL_STATE__ = undefined;
+    </script>
+    <div id="app">
+    </div>
+    <script>
+      document.querySelector("#app>[data-reactroot]").setAttribute("data-react-checksum", "1336804998")
+    </script>
+    <script type="text/javascript"
+            src="https://cdn.polyfill.io/v2/polyfill.min.js?features="
+    >
+    </script>
+    <script type="text/javascript"
+            src="commonJs"
+    >
+    </script>
+    <script type="text/javascript"
+            src="testJs"
+    >
+    </script>
+  </body>
+</html>
+
+`;

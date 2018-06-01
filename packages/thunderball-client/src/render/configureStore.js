@@ -1,6 +1,6 @@
-import appReducers from '../reducers/index';
 import { createLogger } from 'redux-logger';
 import { applyMiddleware, createStore, compose, combineReducers } from 'redux';
+import appReducers from '../reducers/index';
 import handleResetOnAction from './handleResetOnAction';
 
 const isReactNative = typeof navigator === 'object' && navigator.product === 'ReactNative';

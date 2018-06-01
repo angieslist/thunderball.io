@@ -1,14 +1,8 @@
-import compression from 'compression';
-import express from 'express';
 import logger from '../logger';
-import thunderballMiddleware from '../../thunderballMiddleware';
 import setupStaticAssetRoutes from './routing/setupStaticAssetRoutes';
 import setupStaticFolderRoutes from './routing/setupStaticFolderRoutes';
 import setupIonSpaRoutes from './routing/setupIonSpaRoutes';
-
-const app = express();
-app.use(thunderballMiddleware);
-app.use(compression());
+import app from '../app';
 
 // Setup static route (javascript, css, etc)
 setupStaticAssetRoutes(app);

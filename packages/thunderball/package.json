@@ -6,6 +6,8 @@
   "files": [
     "lib/"
   ],
+  "homepage": "http://thunderball.io",
+  "repository": "angieslist/thunderball.io",
   "engines": {
     "node": ">=6"
   },
@@ -76,5 +78,8 @@
     "webpack-visualizer-plugin": "^0.1.11",
     "winston": "^2.3.1",
     "yargs": "^8.0.2"
+  },
+  "devDependencies": {
+    "supertest": "^3.0.0"
   }
 }

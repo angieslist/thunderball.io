@@ -17,9 +17,6 @@ npm install -g yo
 
 You can think of a generator like a plug-in for Yeoman. With it, you can choose what type of application you wish to create.
 
-If you aren't setup to use nexus as your global npm repo:
-  - Copy [.npmrc](https://github.com/angieslist/thunderball/blob/master/packages/generator-thunderball/.npmrc) to your home folder (`~`)
-
 To install generator-thunderball, run:
 
 ```bash

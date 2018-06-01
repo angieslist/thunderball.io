@@ -24,7 +24,8 @@ export default (ssr = {}, req, shouldMemoize, appConfig = constants.APP_CONFIG) 
 
   return Promise.all(promises)
     .then(results =>
-      // If we have a custom getInitialState method then call and and merge its' results with our initial config
+      // If we have a custom getInitialState method then call and merge its results with our
+      // initial config
       results.reduce((prev, result) => ({ ...prev, ...result }), defaultInitialState),
     );
 };

@@ -1,22 +1,21 @@
-import logger from './logger';
 import compression from 'compression';
-import express from 'express';
+import _ from 'lodash';
+import logger from './logger';
+import app from './app';
 import constants from '../constants';
 import thunderballMiddleware from '../thunderballMiddleware';
-import _ from 'lodash';
 
-const app = express();
 app.use(thunderballMiddleware);
 app.use(compression());
 
 // Apply ion specified middleware
-app.use(require('./handlers/ionMiddlewareHandler'));
+require('./handlers/ionMiddlewareHandler');
 
 // Apply api proxy route middleware
-app.use(require('./handlers/apiProxyHandler'));
+require('./handlers/apiProxyHandler');
 
 // Apply browser page middleware
-app.use(require('./browser'));
+require('./browser');
 
 // Apply error middleware
 app.use(require('./handlers/errorHandler'));
@@ -34,6 +33,8 @@ if (!constants.IS_PRODUCTION) {
 
 // Start server
 const port = _.get(constants.APP_CONFIG, 'port', 8000);
-app.listen(port, () => {
+const server = app.listen(port, () => {
   logger.info(`Server started at port ${port}`);
 });
+
+export default server;

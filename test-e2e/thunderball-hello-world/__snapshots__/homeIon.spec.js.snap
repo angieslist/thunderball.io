@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`homeIon Get / (HomeView) returns the page 1`] = `
+
+<!DOCTYPE html>
+<html data-react-checksum="TEST-CHECKSUM">
+  <head>
+    <title data-react-helmet="true">
+    </title>
+    <link href="/assets/home-TEST-HASH.css"
+          rel="stylesheet"
+          key="0"
+    >
+  </head>
+  <body>
+    <script type="text/javascript">
+      window.__INITIAL_STATE__ = {"config":{"appVersion":"TEST-VERSION","appName":"thunderball-hello-world"},"device":{"host":"http:\\u002F\\u002Flocalhost:8000"},"routing":{"locationBeforeTransitions":{"pathname":"\\u002F","search":"","hash":"","action":"POP","key":null,"query":{}}}};
+    </script>
+    <div id="app">
+      <div data-reactroot
+           data-reactid="1"
+      >
+        <div data-reactid="3">
+          <h1 data-reactid="5">
+            Welcome to Thunderball hello world.
+          </h1>
+        </div>
+      </div>
+    </div>
+    <script>
+      document.querySelector("#app>[data-reactroot]").setAttribute("data-react-checksum", "TEST-CHECKSUM")
+    </script>
+    <script type="text/javascript"
+            src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en"
+    >
+    </script>
+    <script type="text/javascript"
+            src="/assets/commons-TEST-HASH.js"
+    >
+    </script>
+    <script type="text/javascript"
+            src="/assets/home-TEST-HASH.js"
+    >
+    </script>
+  </body>
+</html>
+
+`;

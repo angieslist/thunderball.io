@@ -1,17 +1,13 @@
 /* eslint-disable no-undef, no-console, global-require */
 import bg from 'gulp-bg';
-import del from 'del';
-import fs from 'fs';
 import gulp from 'gulp';
 import path from 'path';
 import nodemon from 'gulp-nodemon';
-import runSequence from 'run-sequence';
-import shell from 'gulp-shell';
-import webpackBuild from '../webpack/build';
 import yargs from 'yargs';
+import _ from 'lodash';
+import webpackBuild from '../webpack/build';
 import gulpTasks from './baseTasks';
 import constants from '../constants';
-import _ from 'lodash';
 
 gulpTasks.config.outputFolder = 'build';
 gulpTasks.config.cleanFiles = [gulpTasks.config.outputFolder, './ios/build'];

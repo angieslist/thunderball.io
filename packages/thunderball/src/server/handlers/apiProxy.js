@@ -1,7 +1,5 @@
-import logger from '../logger';
-import path from 'path';
-import _ from 'lodash';
 import request from 'request';
+import logger from '../logger';
 
 export const joinProxyPath = (requestUrl, pathUrl) =>
   // Combine the request url with any pathUrl

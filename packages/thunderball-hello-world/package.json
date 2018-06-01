@@ -31,7 +31,7 @@
     "eslint-plugin-thunderball": "^0.0.0",
     "generator-thunderball": "^0.0.0",
     "gulp": "^3.9.1",
-    "jest": "^21.1.0",
+    "jest": "^22.4.2",
     "react-test-renderer": "^15.5.4"
   }
 }

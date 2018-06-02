@@ -1,6 +1,6 @@
 {
   "name": "generator-thunderball",
-  "version": "0.0.0",
+  "version": "0.1.2",
   "license": "Apache-2.0",
   "description": "A yeoman generator for building Thunderball applications",
   "main": "app/index.js",

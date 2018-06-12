@@ -1,0 +1,65 @@
+version: 2
+jobs:
+  build:
+    branches:
+      ignore:
+        - gh-pages
+        - test-gh-pages
+    docker:
+      - image: circleci/node:carbon
+    steps:
+      - run:
+          name: Add node_module bin to path
+          command: echo 'export PATH=$PATH:${CIRCLE_WORKING_DIRECTORY}/node_modules/.bin' >> $BASH_ENV
+      - checkout
+      - restore_cache:
+          keys:
+            - dependency-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "package.json" }}
+            - dependency-cache-{{ .Environment.CACHE_VERSION }}
+      - run:
+          name: Make a folder to store build artifacts
+          command: mkdir -p build-artifacts
+      - run:
+          name: Make a folder to store test artifacts
+          command: mkdir -p test-artifacts
+      - run:
+          name: Run npm config
+          command: |
+            npm config set package-lock false &&
+            npm config set prefix ~/npm_prefix
+      - run:
+          name: Run npm install
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "package.json" }}
+          paths:
+            - ~/.npm
+      - run:
+          name: Run npm bootstrap
+          command: npm run bootstrap
+      - run:
+          name: Run npm build
+          command: NODE_ENV=production npm run build
+      - run:
+          name: Run npm test-ci
+          command: npm run test-ci
+      - run:
+          name: Run build hello world
+          command: cd ./packages/thunderball-hello-world && gulp build -p && cd ../..
+      - run:
+          name: Run npm test-e2e
+          command: npm run test-e2e
+      - run:
+          name: Copy Test Results
+          command: cp -v test-report.xml test-artifacts
+      - run:
+          name: Copy Test Report Into Artifacts
+          command: cp -v test-report.xml build-artifacts
+      - run:
+          name: Copy Coverage Info
+          command: cp -vR coverage build-artifacts
+      - store_test_results:
+          path: test-artifacts
+      - store_artifacts:
+          path: build-artifacts
+          destination: /

@@ -8,4 +8,6 @@ module.exports = {
     '/templates/',
     '/test-e2e/',
   ],
+  setupTestFrameworkScriptFile: './jest.setup.js',
+  testURL: 'http://localhost/',
 };

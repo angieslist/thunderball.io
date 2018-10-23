@@ -18,7 +18,7 @@ describe('generator-thunderball(:app)', () => {
 
   it('copies hidden files', () => {
     assert.file([
-      '.eslintrc'
+      '.eslintrc.js'
     ]);
   });
 

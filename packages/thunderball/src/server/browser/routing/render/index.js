@@ -12,13 +12,6 @@ import notFoundHandler from '../../../handlers/notFoundHandler';
 import '../../../noBlindFetchOnServer';
 
 const MEMOIZE_MAX_AGE = _.get(constants.APP_CONFIG, 'ssr.caching.memoizeMaxAge', 3600000);
-const { setCacheStrategy } = require('rapscallion');
-
-// Determine if a rapscallion cache strategy was defined in config.js
-const getCacheStrategy = _.get(constants.APP_CONFIG, 'ssr.caching.getCacheStrategy');
-if (typeof getCacheStrategy === 'function') {
-  setCacheStrategy(getCacheStrategy());
-}
 
 const instrumentationProviders = _.get(constants.APP_CONFIG, 'instrumentation.providers', [])
   .filter(provider => typeof provider.createTracer === 'function');
@@ -120,11 +113,6 @@ const render = (page, name, createRoutes, injectors = []) => {
                   _.forOwn(customHeaders, (value, key) => {
                     res.setHeader(key, value);
                   });
-                }
-
-                if (constants.IS_PRODUCTION) {
-                  // CacheKey is part of rapscallion and causes the jsx tree or substree to be cached
-                  renderProps.cacheKey = cacheKey;
                 }
 
                 // TODO: We could memoize all code to the 'catch' statement in a function using 'cacheKey' as the memoize key

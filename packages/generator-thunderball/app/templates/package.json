@@ -11,16 +11,18 @@
   },
   "dependencies": {
     "prop-types": "^15.5.8",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
     "react-helmet": "^5.0.3",
-    "react-router": "^3.0.5",
-    "recompose": "^0.23.1",
-    "thunderball": "*"
+    "react-router": "^3.2.1",
+    "recompose": "^0.25.1",
+    "thunderball": "*",
+    "thunderball-client": "*"
   },
   "devDependencies": {
-    "enzyme": "^2.9.1",
-    "enzyme-to-json": "^2.0.0",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.1",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jest": "^21.0.2",
@@ -30,6 +32,6 @@
     "eslint-plugin-thunderball": "*",
     "gulp": "^3.9.1",
     "jest": "^22.4.2",
-    "react-test-renderer": "^15.5.4"
+    "react-test-renderer": "^16.3.2"
   }
 }

@@ -103,8 +103,17 @@ const createCachedRenderer = (preShell, appShell, postShell, cacheKey) => ({
   },
 });
 
-/* eslint max-params: 0 */
-const getPageRenderer = (store, renderProps, req, page, name, cacheKey, ssrConfig, flushCache = false) => {
+const getPageRenderer = ({
+  store,
+  renderProps,
+  req,
+  page,
+  name,
+  cacheKey,
+  reactRendererCacheKey,
+  ssrConfig,
+  flushCache = false,
+}) => {
   if (flushCache) {
     htmlCache.flushAll();
   }
@@ -128,7 +137,7 @@ const getPageRenderer = (store, renderProps, req, page, name, cacheKey, ssrConfi
   const preShell = `<html ${html.htmlAttrs}><head>${html.head}</head><body ${html.bodyAttrs}><script type="text/javascript">window.__INITIAL_STATE__ = ${serialize(state)};</script>${html.scripts.beforeBody.join('')}<div id="app">`;
   const postShell = `</div>${html.scripts.afterBody.join('')}</body></html>`;
 
-  const cacheKeyStr = `${name}:${JSON.stringify(cacheKey)}`;
+  const cacheKeyStr = `${name}:${JSON.stringify(reactRendererCacheKey)}`;
 
   return createCachedRenderer(preShell, appBody, postShell, cacheKeyStr);
 };

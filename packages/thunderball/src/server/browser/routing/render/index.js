@@ -5,6 +5,7 @@ import memoize from 'memoizee';
 import getStoreAndRoutes from 'thunderball-client/lib/render/getStoreAndRoutes';
 import logger from '../../../logger';
 import constants from '../../../../constants';
+import reduxSsrActionMiddleware from './reduxSsrActionMiddleware';
 import getInitialState from './getInitialState';
 import getPageRenderer from './getPageRenderer';
 import notFoundHandler from '../../../handlers/notFoundHandler';
@@ -22,6 +23,12 @@ const memoziedCreateMemoryHistory = memoize(createMemoryHistory,
 // Memoize on cacheKey
 const memoizedGetStoreAndRoutes = memoize(getStoreAndRoutes,
   { maxAge: MEMOIZE_MAX_AGE, normalizer: args => args[6] });
+
+const memoizedSsrActionMiddleware = memoize(reduxSsrActionMiddleware,
+  { maxAge: MEMOIZE_MAX_AGE,
+    normalizer: args => args[3],
+    promise: true,
+  });
 
 /* eslint max-params: 0 */
 const getData = (initialState, createRoutes, injectors, pageProps, shouldMemoize, cacheKey, originalUrl) => {
@@ -70,6 +77,7 @@ const render = (page, name, createRoutes, injectors = []) => {
         const pathName = url.parse(req.url).pathname;
         // Determine cacheKey to use or default to pathName, cacheKey function could return undefined
         const cacheKey = _.get(ssrConfig, 'caching.getCacheKey', () => pathName)(req);
+        const reactRendererCacheKey = _.get(ssrConfig, 'caching.getReactRendererCacheKey', () => pathName)(req);
 
         // Get store and routes for the page
         const { store, routes, history } = getData(
@@ -115,23 +123,39 @@ const render = (page, name, createRoutes, injectors = []) => {
                   });
                 }
 
-                // TODO: We could memoize all code to the 'catch' statement in a function using 'cacheKey' as the memoize key
-                // this would effectively cache the entire html string so we can then res.send(html) the memoized html string
-                // We would remove the toStream option if we did this as it would be unnecessary
-                const pageRenderer = getPageRenderer(store, renderProps, req, page, name, cacheKey, ssrConfig);
-
-                if (!_.get(ssrConfig, 'useStreaming')) {
-                  pageRenderer.toPromise()
-                    .then((html) => {
-                      res.send(`<!DOCTYPE html>${html}`);
-                    }).catch((e) => {
-                      next(e);
+                memoizedSsrActionMiddleware(store, renderProps, req, reactRendererCacheKey)
+                  .then(() => {
+                    // TODO: We could memoize all code to the 'catch' statement in a function using 'cacheKey' as the memoize key
+                    // this would effectively cache the entire html string so we can then res.send(html) the memoized html string
+                    // We would remove the toStream option if we did this as it would be unnecessary
+                    const pageRenderer = getPageRenderer({
+                      store,
+                      renderProps,
+                      req,
+                      page,
+                      name,
+                      cacheKey,
+                      reactRendererCacheKey,
+                      ssrConfig,
                     });
-                } else {
-                  res.write('<!DOCTYPE html>');
-                  pageRenderer.toStream()
-                    .pipe(res);
-                }
+
+                    if (!_.get(ssrConfig, 'useStreaming')) {
+                      pageRenderer.toPromise()
+                        .then((html) => {
+                          res.send(`<!DOCTYPE html>${html}`);
+                        }).catch((e) => {
+                          next(e);
+                        });
+                    } else {
+                      res.write('<!DOCTYPE html>');
+
+                      pageRenderer.toStream()
+                        .pipe(res);
+                    }
+                  })
+                  .catch((e) => {
+                    next(e);
+                  });
               } catch (e) {
                 next(e);
                 return;

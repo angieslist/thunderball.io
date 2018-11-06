@@ -49,14 +49,14 @@ describe('getPageRenderer.js', () => {
     const ssrConfig = null;
     it('returns a renderer', async () => {
       const pageRenderer = getPageRenderer(
-        store, renderProps, req, page, name, cacheKey, ssrConfig,
+        { store, renderProps, req, page, name, cacheKey, ssrConfig },
       );
       expect(pageRenderer.toPromise).toBeInstanceOf(Function);
       expect(pageRenderer.toStream).toBeInstanceOf(Function);
     });
     it('renders html to a promise', async () => {
       const pageRenderer = getPageRenderer(
-        store, renderProps, req, page, name, cacheKey, ssrConfig, true,
+        { store, renderProps, req, page, name, cacheKey, ssrConfig, flushCache: true },
       );
       const html = await pageRenderer.toPromise();
       expect(html).toMatchSnapshot();
@@ -65,7 +65,7 @@ describe('getPageRenderer.js', () => {
     });
     it('renders html to a node stream', async () => {
       const pageRenderer = getPageRenderer(
-        store, renderProps, req, page, name, cacheKey, ssrConfig, true,
+        { store, renderProps, req, page, name, cacheKey, ssrConfig, flushCache: true },
       );
       const stream = pageRenderer.toStream();
       expect(stream).toBeInstanceOf(Stream.Readable);

@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ionLoader.load loads all ions in an ions directory 1`] = `
+Array [
+  Object {
+    "config": Object {
+      "browser": Object {
+        "page": Object {
+          "createRoutes": "./browser/createRoutes",
+          "injectors": Array [
+            "../../appInjectors",
+          ],
+          "path": "/*",
+        },
+      },
+      "name": "home",
+    },
+    "dir": "home",
+    "name": "home",
+  },
+]
+`;

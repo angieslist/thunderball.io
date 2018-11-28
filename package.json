@@ -21,7 +21,7 @@
     "test-e2e": "run-p --race test-e2e-server test-e2e-jest",
     "test-e2e-jest": "jest --config=./test-e2e/jest.config.js",
     "test-e2e-server": "cd packages/thunderball-hello-world && NODE_ENV=production node index",
-    "transpile": "lerna exec --parallel --ignore generator-thunderball -- babel src -d lib --ignore *.spec.js"
+    "transpile": "lerna exec --parallel --ignore generator-thunderball -- babel src -d lib --ignore *.spec.js,**/__test__/**"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

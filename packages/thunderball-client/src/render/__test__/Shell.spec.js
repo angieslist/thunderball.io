@@ -67,7 +67,7 @@ describe('Shell', () => {
     delete process.env.IS_BROWSER;
   });
   it('calls injector afterPageMounted', () => {
-    const wrapper = shallow(
+    shallow(
       <Shell
         store={store}
         pageProps={pageProps}

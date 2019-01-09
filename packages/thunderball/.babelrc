@@ -12,8 +12,7 @@
       }
     ],
     "add-module-exports",
-    "lodash",
-    "rapscallion/babel-plugin-server"
+    "lodash"
   ],
   "env": {
     "development": {

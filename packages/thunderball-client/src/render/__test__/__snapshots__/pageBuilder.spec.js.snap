@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pageBuilder renders Shell with props into div#app 1`] = `
+Array [
+  Array [
+    <Shell
+      defaultLocale="en"
+      history={
+        Object {
+          "testHistory": true,
+        }
+      }
+      injectors={
+        Array [
+          Object {
+            "afterCreateRoutes": [MockFunction],
+            "beforeCreateRoutes": [MockFunction],
+            "beforePageMounted": [MockFunction],
+          },
+        ]
+      }
+      pageProps={
+        Object {
+          "aPageProp": "aPagePropValue",
+        }
+      }
+      routes={
+        Object {
+          "testRoutes": true,
+        }
+      }
+      store={
+        Object {
+          "dispatch": [MockFunction],
+          "getState": [MockFunction],
+          "testStore": true,
+        }
+      }
+    />,
+    <div
+      id="app"
+    />,
+  ],
+]
+`;

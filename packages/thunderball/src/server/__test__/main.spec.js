@@ -4,6 +4,7 @@ describe('main - app', () => {
   let server;
 
   beforeEach(() => {
+    // eslint-disable-next-line global-require
     server = require('../main');
   });
 

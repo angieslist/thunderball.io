@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Shell renders  1`] = `
+<Provider
+  store={
+    Object {
+      "dispatch": [MockFunction],
+      "getState": [MockFunction],
+      "testStore": true,
+    }
+  }
+>
+  <IntlProvider
+    defaultLocale="en"
+    initialNow={2016-01-01T00:00:00.000Z}
+    key="en"
+    locale="en"
+  >
+    <RouterContext
+      createElement={[Function]}
+      testRenderProps={true}
+    />
+  </IntlProvider>
+</Provider>
+`;
+
+exports[`Shell renders in browser 1`] = `
+<Provider
+  store={
+    Object {
+      "dispatch": [MockFunction],
+      "getState": [MockFunction],
+      "testStore": true,
+    }
+  }
+>
+  <IntlProvider
+    defaultLocale="en"
+    initialNow={2016-01-01T00:00:00.000Z}
+    key="en"
+    locale="en"
+  >
+    <Router
+      history={
+        Object {
+          "testHistory": true,
+        }
+      }
+      render={[Function]}
+    >
+      <Component />
+    </Router>
+  </IntlProvider>
+</Provider>
+`;

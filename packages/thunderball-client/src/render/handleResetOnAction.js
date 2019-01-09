@@ -1,8 +1,8 @@
 /**
- * Reset the redux store to it's initialState when the defined action(s) occur
+ * Reset the redux store to its initialState when the defined action(s) occur
  * @param {object} reducer The top level composed reducer to comprise the redux store
  * @param {object} initialState The initial state of the redux store (will be used to reset)
- * @param {Array} resetOnAction The action or actions to cause the store to reset it's state
+ * @param {Array} resetOnAction The action or actions to cause the store to reset its state
  * @return {object} The determined state
  */
 export default (reducer, initialState, resetOnAction) => (state, action) => {

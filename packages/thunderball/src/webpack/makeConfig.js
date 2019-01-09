@@ -179,8 +179,8 @@ export default function makeConfig(isDevelopment, hotPort, hotHost) {
       ],
       alias: {
         __root__: constants.ABSOLUTE_BASE,
-        react: path.resolve(constants.NODE_MODULES_DIR, isDevelopment ? 'react/dist/react.js' : 'react/dist/react.min.js'),
-        'react-dom': path.resolve(constants.NODE_MODULES_DIR, isDevelopment ? 'react-dom/dist/react-dom.js' : 'react-dom/dist/react-dom.min.js'),
+        react: path.resolve(constants.NODE_MODULES_DIR, isDevelopment ? 'react/umd/react.development.js' : 'react/umd/react.production.min.js'),
+        'react-dom': path.resolve(constants.NODE_MODULES_DIR, isDevelopment ? 'react-dom/umd/react-dom.development.js' : 'react-dom/umd/react-dom.production.min.js'),
       },
     },
   };

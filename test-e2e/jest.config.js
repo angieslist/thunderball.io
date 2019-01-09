@@ -4,4 +4,5 @@ module.exports = {
   snapshotSerializers: [
     'jest-serializer-html',
   ],
+  testURL: 'http://localhost/',
 };

@@ -5,5 +5,8 @@ exports[`<HomeView /> renders 1`] = `
   <h1>
     Welcome to Thunderball hello world.
   </h1>
+  <div>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vehicula laoreet sem, eget blandit eros dapibus id. Nam et metus nec elit placerat molestie. Etiam ultricies semper finibus. Maecenas efficitur risus elit. Sed ac felis vulputate, ornare neque ut, tempor dui. Sed efficitur auctor est quis faucibus. Quisque venenatis ornare tempus. Integer odio odio, fringilla vitae urna et, dapibus posuere felis. Aenean tristique semper erat, ac finibus augue pharetra eget. Mauris efficitur turpis vitae ante suscipit molestie.
+  </div>
 </div>
 `;

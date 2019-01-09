@@ -1,5 +1,13 @@
 import { Helmet } from 'react-helmet';
+import { Stream } from 'stream';
 import getPageRenderer, { getHtmlProperties } from '../getPageRenderer';
+
+const streamToPromise = stream => (new Promise((resolve, reject) => {
+  let buffer = '';
+  stream.on('data', (data) => { buffer += data; });
+  stream.on('end', () => resolve(buffer));
+  stream.on('error', () => reject());
+}));
 
 describe('getPageRenderer.js', () => {
   let webpackIsomorphicTools;
@@ -30,22 +38,42 @@ describe('getPageRenderer.js', () => {
     global.webpackIsomorphicTools = webpackIsomorphicTools;
   });
   describe('getPageRenderer', () => {
-    it('returns rapscallion Renderer', async () => {
-      const store = {
-        getState: () => {},
-      };
-      const renderProps = {};
-      const req = {};
-      const page = {};
-      const name = 'testPage';
-      const cacheKey = null;
-      const ssrConfig = null;
+    const store = {
+      getState: () => {},
+    };
+    const renderProps = {};
+    const req = {};
+    const page = {};
+    const name = 'testPage';
+    const cacheKey = null;
+    const ssrConfig = null;
+    it('returns a renderer', async () => {
       const pageRenderer = getPageRenderer(
-        store, renderProps, req, page, name, cacheKey, ssrConfig,
+        { store, renderProps, req, page, name, cacheKey, ssrConfig },
       );
       expect(pageRenderer.toPromise).toBeInstanceOf(Function);
+      expect(pageRenderer.toStream).toBeInstanceOf(Function);
+    });
+    it('renders html to a promise', async () => {
+      const pageRenderer = getPageRenderer(
+        { store, renderProps, req, page, name, cacheKey, ssrConfig, flushCache: true },
+      );
       const html = await pageRenderer.toPromise();
       expect(html).toMatchSnapshot();
+      const cachedHtml = await pageRenderer.toPromise();
+      expect(cachedHtml).toMatchSnapshot();
+    });
+    it('renders html to a node stream', async () => {
+      const pageRenderer = getPageRenderer(
+        { store, renderProps, req, page, name, cacheKey, ssrConfig, flushCache: true },
+      );
+      const stream = pageRenderer.toStream();
+      expect(stream).toBeInstanceOf(Stream.Readable);
+      const html = await streamToPromise(stream);
+      expect(html).toMatchSnapshot();
+      const cachedStream = pageRenderer.toStream();
+      const cachedHtml = await streamToPromise(cachedStream);
+      expect(cachedHtml).toMatchSnapshot();
     });
   });
   describe('getHtmlProperties', () => {

@@ -1,10 +1,7 @@
 /* eslint no-console:0 */
 import del from 'del';
-import eslint from 'gulp-eslint';
 import git from 'git-rev';
 import gulp from 'gulp';
-import gulpIf from 'gulp-if';
-import gutil from 'gulp-util';
 import path from 'path';
 import yargs from 'yargs';
 import fs from 'fs';
@@ -65,26 +62,6 @@ gulp.task('build-info', () => {
       instigator: process.env.USERNAME || process.env.username || '',
     }, null, '  '));
   }
-});
-
-gulp.task('lint', () => {
-  const opts = yargs
-    .option('fix', {
-      default: false,
-      describe: 'fix lint issues',
-      type: 'boolean',
-    })
-    .help('h')
-    .alias('h', 'help')
-    .argv;
-  const isFixed = file => opts.fix && file.eslint && file.eslint.fixed;
-
-  return gulp.src(config.sourceFiles, { base: './' })
-    .pipe(eslint({ fix: opts.fix }))
-    .pipe(eslint.format())
-    .pipe(gulpIf(isFixed, gulp.dest('./')))
-    // Cause errors to break the pipeline only if running from build server
-    .pipe(isBuildServer ? eslint.failAfterError() : gutil.noop());
 });
 
 // COMMANDS

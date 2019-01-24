@@ -15,7 +15,9 @@ export default function build(callback) {
 
   webpack(webpackConfig, (fatalError, stats) => {
     const jsonStats = stats.toJson('verbose');
-    const buildError = fatalError || jsonStats.errors[0] || jsonStats.warnings[0];
+    const notLintWarnings = jsonStats.warnings.filter(warning => warning.indexOf('eslint') === -1);
+
+    const buildError = fatalError || jsonStats.errors[0] || notLintWarnings[0];
 
     // Can save jsonStats to be analyzed with github.com/robertknight/webpack-bundle-size-analyzer.
     fs.writeFileSync('./bundle-stats.json', JSON.stringify(jsonStats));

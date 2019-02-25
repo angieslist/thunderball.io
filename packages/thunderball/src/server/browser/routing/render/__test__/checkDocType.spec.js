@@ -1,12 +1,18 @@
 import React from 'react';
 import request from 'supertest';
 import express from 'express';
-import { Helmet } from 'react-helmet';
+import Helmet from 'react-helmet-async';
 import { Route } from 'react-router';
 import SPARender from '../index';
 
+const TestComponent = () => (
+  <div>
+    <Helmet links={[]} />
+  </div>
+);
+
 const createRoutes = () => (
-  <Route component={null} path="/" />
+  <Route component={TestComponent} path="/" />
 );
 
 describe('Test HTTP Server DOCTYPE', () => {

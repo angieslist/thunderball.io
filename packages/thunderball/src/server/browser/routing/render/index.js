@@ -26,7 +26,7 @@ const memoizedGetStoreAndRoutes = memoize(getStoreAndRoutes,
 
 const memoizedSsrActionMiddleware = memoize(reduxSsrActionMiddleware,
   { maxAge: MEMOIZE_MAX_AGE,
-    normalizer: args => args[3],
+    normalizer: args => args[4],
     promise: true,
   });
 
@@ -83,8 +83,8 @@ const render = (page, name, createRoutes, injectors = []) => {
         const { store, routes, history } = getData(
           initialState, createRoutes, injectors, page.props, shouldMemoize, cacheKey, req.originalUrl);
 
-          // Match the route based on the requested url
-          /* eslint no-param-reassign: 0 */
+        // Match the route based on the requested url
+        /* eslint no-param-reassign: 0 */
         match({ history, routes, location: req.url },
           (error, redirectLocation, renderProps) => {
             const generate = () => {
@@ -123,41 +123,58 @@ const render = (page, name, createRoutes, injectors = []) => {
                   });
                 }
 
-                memoizedSsrActionMiddleware(store, renderProps, req, reactRendererCacheKey)
-                  .then(() => {
-                    // TODO: We could memoize all code to the 'catch' statement in a function using 'cacheKey' as the memoize key
-                    // this would effectively cache the entire html string so we can then res.send(html) the memoized html string
-                    // We would remove the toStream option if we did this as it would be unnecessary
-                    const pageRenderer = getPageRenderer({
-                      store,
-                      renderProps,
-                      req,
-                      page,
-                      name,
-                      cacheKey,
-                      reactRendererCacheKey,
-                      ssrConfig,
-                    });
-
-                    if (!_.get(ssrConfig, 'useStreaming')) {
-                      pageRenderer.toPromise()
-                        .then((html) => {
-                          res.send(`<!DOCTYPE html>${html}`);
-                        }).catch((e) => {
-                          next(e);
-                        });
-                    } else {
-                      res.write('<!DOCTYPE html>');
-
-                      pageRenderer.toStream()
-                        .pipe(res);
-                    }
-                  })
-                  .catch((e) => {
-                    next(e);
+                const renderPage = () => {
+                  // TODO: We could memoize all code to the 'catch' statement in a function using 'cacheKey' as the memoize key
+                  // this would effectively cache the entire html string so we can then res.send(html) the memoized html string
+                  // We would remove the toStream option if we did this as it would be unnecessary
+                  const pageRenderer = getPageRenderer({
+                    store,
+                    renderProps,
+                    req,
+                    page,
+                    name,
+                    cacheKey,
+                    reactRendererCacheKey,
+                    ssrConfig,
+                    helmetContext: {},
                   });
-              } catch (e) {
-                next(e);
+
+                  if (!_.get(ssrConfig, 'useStreaming')) {
+                    pageRenderer.toPromise()
+                      .then((html) => {
+                        res.send(`<!DOCTYPE html>${html}`);
+                      }).catch((e) => {
+                        next(e);
+                      });
+                  } else {
+                    res.write('<!DOCTYPE html>');
+
+                    pageRenderer.toStream()
+                      .pipe(res);
+                  }
+                };
+
+                memoizedSsrActionMiddleware(store, renderProps, req, res, reactRendererCacheKey)
+                  .then(() => {
+                    renderPage();
+                  })
+                  .catch((err) => {
+                    const maybeSsrLoadFailFn = renderProps.components.reduce((acc, component) => {
+                      const maybeSsrFailFn = _.get(component, 'ssrLoadFail') || _.get(component, 'WrappedComponent.ssrLoadFail');
+                      if (maybeSsrFailFn) {
+                        return maybeSsrFailFn;
+                      }
+                      return acc;
+                    });
+                    if (maybeSsrLoadFailFn) {
+                      maybeSsrLoadFailFn({ err, res });
+                      renderPage();
+                    } else {
+                      next(err);
+                    }
+                  });
+              } catch (err) {
+                next(err);
                 return;
               }
 

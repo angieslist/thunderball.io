@@ -3,10 +3,16 @@
 exports[`homeIon Get / (HomeView) returns the page 1`] = `
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title data-react-helmet="true">
+    <title data-rh="true">
+      Thunderball hello world - Thunderball hello world
     </title>
+    <link data-rh="true"
+          rel="shortcut icon"
+          type="image/png"
+          href="/assets/fb8bTEST-CHECKSUMe246c3363bfcc4f601.png"
+    >
     <link href="/assets/home-TEST-HASH.css"
           rel="stylesheet"
           key="0"

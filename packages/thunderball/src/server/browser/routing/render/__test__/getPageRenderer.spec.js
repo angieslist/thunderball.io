@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet';
+import Helmet from 'react-helmet-async';
 import { Stream } from 'stream';
 import getPageRenderer, { getHtmlProperties } from '../getPageRenderer';
 
@@ -46,27 +46,92 @@ describe('getPageRenderer.js', () => {
     const page = {};
     const name = 'testPage';
     const cacheKey = null;
+    const reactRendererCacheKey = null;
     const ssrConfig = null;
     it('returns a renderer', async () => {
-      const pageRenderer = getPageRenderer(
-        { store, renderProps, req, page, name, cacheKey, ssrConfig },
-      );
+      const pageRenderer = getPageRenderer({
+        store,
+        renderProps,
+        req,
+        page,
+        name,
+        cacheKey,
+        reactRendererCacheKey,
+        ssrConfig,
+        helmetContext: {
+          helmet: {
+            htmlAttributes: '',
+            title: '',
+            base: '',
+            meta: '',
+            link: '',
+            style: '',
+            script: '',
+            noscript: '',
+          },
+        },
+      });
+
       expect(pageRenderer.toPromise).toBeInstanceOf(Function);
       expect(pageRenderer.toStream).toBeInstanceOf(Function);
     });
     it('renders html to a promise', async () => {
-      const pageRenderer = getPageRenderer(
-        { store, renderProps, req, page, name, cacheKey, ssrConfig, flushCache: true },
-      );
+      const pageRenderer = getPageRenderer({
+        store,
+        renderProps,
+        req,
+        page,
+        name,
+        cacheKey,
+        reactRendererCacheKey,
+        ssrConfig,
+        flushCache: true,
+        helmetContext: {
+          helmet: {
+            htmlAttributes: '',
+            bodyAttributes: '',
+            title: '',
+            base: '',
+            meta: '',
+            link: '',
+            style: '',
+            script: '',
+            noscript: '',
+          },
+        },
+      });
+
       const html = await pageRenderer.toPromise();
       expect(html).toMatchSnapshot();
       const cachedHtml = await pageRenderer.toPromise();
       expect(cachedHtml).toMatchSnapshot();
     });
     it('renders html to a node stream', async () => {
-      const pageRenderer = getPageRenderer(
-        { store, renderProps, req, page, name, cacheKey, ssrConfig, flushCache: true },
-      );
+      const pageRenderer = getPageRenderer({
+        store,
+        renderProps,
+        req,
+        page,
+        name,
+        cacheKey,
+        reactRendererCacheKey,
+        ssrConfig,
+        flushCache: true,
+        helmetContext: {
+          helmet: {
+            htmlAttributes: '',
+            bodyAttributes: '',
+            title: '',
+            base: '',
+            meta: '',
+            link: '',
+            style: '',
+            script: '',
+            noscript: '',
+          },
+        },
+      });
+
       const stream = pageRenderer.toStream();
       expect(stream).toBeInstanceOf(Stream.Readable);
       const html = await streamToPromise(stream);
@@ -78,7 +143,24 @@ describe('getPageRenderer.js', () => {
   });
   describe('getHtmlProperties', () => {
     it('gets HTML properties', () => {
-      const htmlProperties = getHtmlProperties({}, 'testPage');
+      const htmlProperties = getHtmlProperties(
+        {},
+        'testPage',
+        null,
+        {
+          helmet: {
+            htmlAttributes: '',
+            bodyAttributes: '',
+            title: '',
+            base: '',
+            meta: '',
+            link: '',
+            style: '',
+            script: '',
+            noscript: '',
+          },
+        },
+      );
       expect(htmlProperties).toMatchSnapshot();
     });
   });

@@ -4,8 +4,6 @@ exports[`getPageRenderer.js getHtmlProperties gets HTML properties 1`] = `
 Object {
   "bodyAttrs": "",
   "head": 
-<title data-react-helmet="true">
-</title>
 <link href="commonStyle"
       rel="stylesheet"
       key="0"
@@ -46,8 +44,6 @@ exports[`getPageRenderer.js getPageRenderer renders html to a node stream 1`] = 
 
 <html>
   <head>
-    <title data-react-helmet="true">
-    </title>
     <link href="commonStyle"
           rel="stylesheet"
           key="0"
@@ -84,8 +80,6 @@ exports[`getPageRenderer.js getPageRenderer renders html to a node stream 2`] = 
 
 <html>
   <head>
-    <title data-react-helmet="true">
-    </title>
     <link href="commonStyle"
           rel="stylesheet"
           key="0"
@@ -122,8 +116,6 @@ exports[`getPageRenderer.js getPageRenderer renders html to a promise 1`] = `
 
 <html>
   <head>
-    <title data-react-helmet="true">
-    </title>
     <link href="commonStyle"
           rel="stylesheet"
           key="0"
@@ -160,8 +152,6 @@ exports[`getPageRenderer.js getPageRenderer renders html to a promise 2`] = `
 
 <html>
   <head>
-    <title data-react-helmet="true">
-    </title>
     <link href="commonStyle"
           rel="stylesheet"
           key="0"

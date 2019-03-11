@@ -1,13 +1,13 @@
 // Can be overwritten by babel configuration in the target folders
 {
   "presets": [
-    "react",
-    ["es2015"],
-    "stage-0"
+    "@babel/preset-react",
+    ["@babel/preset-env"]
   ],
   "plugins": [
     [
-      "transform-imports", {
+      "transform-imports",
+      {
         "react-router": {
           "transform": "react-router/lib/${member}",
           "preventFullImport": true
@@ -18,8 +18,6 @@
         }
       }
     ],
-    "transform-runtime",
-    "add-module-exports",
     "lodash",
     "jsx-control-statements"
   ],
@@ -27,8 +25,8 @@
     "production": {
       "plugins": [
         "jsx-control-statements",
-        "transform-react-constant-elements",
-        "transform-react-inline-elements",
+        "@babel/plugin-transform-react-constant-elements",
+        "@babel/plugin-transform-react-inline-elements",
         "transform-react-remove-prop-types",
         "transform-react-pure-class-to-function"
       ]

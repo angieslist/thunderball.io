@@ -1,11 +1,15 @@
 /* This is the webpack hot reload server used in development mode */
-import webpack from 'webpack';
-import webpackDev from 'webpack-dev-middleware';
-import webpackHot from 'webpack-hot-middleware';
-import express from 'express';
-import ip from 'ip';
-import makeWebpackConfig from './makeConfig';
-import constants from '../constants';
+// only use require (not import) so that we can require babel/register first
+// since this file is started up in a background node process
+require('@babel/register');
+
+const webpack = require('webpack');
+const webpackDev = require('webpack-dev-middleware');
+const webpackHot = require('webpack-hot-middleware');
+const express = require('express');
+const ip = require('ip');
+const makeWebpackConfig = require('./makeConfig');
+const constants = require('../constants');
 
 if (process.env.NODE_ENV === 'production') {
   throw new Error('Do not start webpack hot reload server in production environment. You are likely using wrong npm start script');

@@ -29,7 +29,7 @@ const emptyHelmetContext = {
 
 // Allow custom scripts from application config and ion manifest
 // If any scripts are a function, execute them, otherwise just display them
-const getCustomScripts = (page: Object, scriptType: String): Array<String> => [
+const getCustomScripts = (page, scriptType) => [
   ..._.get(constants.APP_CONFIG, `ssr.${scriptType}`, []),
   ..._.get(page, `ssr.${scriptType}`, []),
 ].map(script => ((typeof script === 'function') ? script() : script))

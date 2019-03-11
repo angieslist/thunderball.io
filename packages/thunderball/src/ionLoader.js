@@ -18,6 +18,9 @@ module.exports = {
             dir: folder,
             config: require(path.join(ionsDir, folder, manifestName)) || {},
           };
+          // support ES modules or commonjs
+          ion.config = ion.config.default || ion.config;
+
           // If ion has no 'name', then assume the folder name
           if (!ion.name) {
             ion.name = folder;

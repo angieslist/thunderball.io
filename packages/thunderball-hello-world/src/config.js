@@ -1,6 +1,6 @@
-const packageJson = require('../package.json');
+import packageJson from '../package.json';
 
-module.exports = {
+export default {
   appVersion: packageJson.version,
   appName: packageJson.name,
   port: process.env.PORT || 8000,

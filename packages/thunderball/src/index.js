@@ -1,6 +1,6 @@
 import { config as gulpConfig, tasks as gulpTasks } from './gulp';
 
-export default {
+export {
   gulpConfig,
   gulpTasks,
 };

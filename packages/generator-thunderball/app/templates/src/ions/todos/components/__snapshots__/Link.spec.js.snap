@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Link renders a span when active is true 1`] = `
+<button
+  disabled={true}
+  onClick={[MockFunction]}
+  style={
+    Object {
+      "marginLeft": "4px",
+    }
+  }
+>
+  Test link
+</button>
+`;
+
+exports[`Link renders without crashing 1`] = `
+<button
+  disabled={false}
+  onClick={[MockFunction]}
+  style={
+    Object {
+      "marginLeft": "4px",
+    }
+  }
+>
+  Test link
+</button>
+`;

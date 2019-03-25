@@ -36,7 +36,7 @@ const getCustomScripts = (page, scriptType) => [
   .filter(script => !!script); // remove any falsey scripts
 
 export const getHtmlProperties = (page, name, cacheKey, helmetContext) => {
-  const helmet = _.isNull(helmetContext.helmet) ? emptyHelmetContext : helmetContext.helmet;
+  const helmet = helmetContext.helmet || emptyHelmetContext;
   const { styles, javascript } = webpackIsomorphicTools.assets();
 
   return {

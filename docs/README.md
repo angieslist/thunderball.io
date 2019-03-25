@@ -14,7 +14,7 @@ Thunderball is initially targeting web applications. However, the build tools an
 
 The easiest way to get started is with our yeoman generator. Open your terminal and type:
 
-```
+```sh
 # install yeoman
 npm install -g yo
 

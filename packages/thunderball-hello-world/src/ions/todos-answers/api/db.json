@@ -1,0 +1,11 @@
+{
+  "todos": [{
+    "id": 1,
+    "title": "Learn React",
+    "completed": true
+  }, {
+    "id": 2,
+    "title": "Learn Thunderball",
+    "completed": false
+  }]
+}

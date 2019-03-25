@@ -1,0 +1,128 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VisibleTodoList renders without crashing 1`] = `
+<TodoList
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+  storeSubscription={
+    Subscription {
+      "listeners": Object {
+        "clear": [Function],
+        "get": [Function],
+        "notify": [Function],
+        "subscribe": [Function],
+      },
+      "onStateChange": [Function],
+      "parentSub": undefined,
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+      "unsubscribe": [Function],
+    }
+  }
+  todos={
+    Array [
+      Object {
+        "completed": false,
+        "id": 0,
+        "text": "Test AddTodo",
+      },
+      Object {
+        "completed": true,
+        "id": 1,
+        "text": "Test AddTodo",
+      },
+    ]
+  }
+  toggleTodo={[Function]}
+/>
+`;
+
+exports[`VisibleTodoList shows active todos when SHOW_ACTIVE filter is active 1`] = `
+<div>
+  <Todo
+    completed={false}
+    id={0}
+    key="0"
+    onClick={[Function]}
+    text="Test AddTodo"
+  />
+  <Todo
+    completed={true}
+    id={1}
+    key="1"
+    onClick={[Function]}
+    text="Test AddTodo"
+  />
+</div>
+`;
+
+exports[`VisibleTodoList shows all todos when SHOW_ALL filter is active 1`] = `
+<div>
+  <Todo
+    completed={false}
+    id={0}
+    key="0"
+    onClick={[Function]}
+    text="Test AddTodo"
+  />
+  <Todo
+    completed={true}
+    id={1}
+    key="1"
+    onClick={[Function]}
+    text="Test AddTodo"
+  />
+</div>
+`;
+
+exports[`VisibleTodoList shows completed todos when SHOW_COMPLETED filter is active 1`] = `
+<div>
+  <Todo
+    completed={false}
+    id={0}
+    key="0"
+    onClick={[Function]}
+    text="Test AddTodo"
+  />
+  <Todo
+    completed={true}
+    id={1}
+    key="1"
+    onClick={[Function]}
+    text="Test AddTodo"
+  />
+</div>
+`;
+
+exports[`VisibleTodoList toggles todos when a todo is clicked 1`] = `
+<div>
+  <Todo
+    completed={false}
+    id={0}
+    key="0"
+    onClick={[Function]}
+    text="Test AddTodo"
+  />
+  <Todo
+    completed={true}
+    id={1}
+    key="1"
+    onClick={[Function]}
+    text="Test AddTodo"
+  />
+</div>
+`;

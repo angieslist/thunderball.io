@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`is a properly formatted manifest object 1`] = `
+Object {
+  "browser": Object {
+    "page": Object {
+      "createRoutes": "./createRoutes",
+      "injectors": Array [
+        "../../appInjectors",
+        "./injectors",
+      ],
+      "path": "/todos*",
+      "props": Object {
+        "basePath": "/todos",
+      },
+    },
+  },
+  "name": "todos",
+}
+`;

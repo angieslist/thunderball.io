@@ -1,9 +1,11 @@
 import packageJson from '../package.json';
 
+const port = process.env.PORT || 8000;
+
 export default {
   appVersion: packageJson.version,
   appName: packageJson.name,
-  port: process.env.PORT || 8000,
+  port,
   hotReloadPort: process.env.HOT_RELOAD_PORT || 8080,
   ionsDir: '/src/ions',
   staticAssets: {
@@ -20,10 +22,10 @@ export default {
     locales: ['en'],
     defaultLocale: 'en',
   },
-  proxyRoutes: [
-    // Add proxy routes here such as:
-    // { path: 'api/twitter', proxyUrl: 'https://api.twitter.com/' }
-  ],
+  proxyRoutes: [{
+    path: 'todos-api',
+    proxyUrl: `http://127.0.0.1:${port}/api`,
+  }],
   clientConfigKeys: [
     'appVersion', 'appName',
   ],

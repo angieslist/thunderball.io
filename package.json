@@ -21,7 +21,7 @@
     "test-e2e": "run-p --race test-e2e-server test-e2e-jest",
     "test-e2e-jest": "jest --config=./test-e2e/jest.config.js",
     "test-e2e-server": "cd packages/thunderball-hello-world && NODE_ENV=production node index",
-    "transpile": "lerna exec --parallel --ignore generator-thunderball -- babel src -d lib --ignore *.spec.js,**/__test__/**"
+    "transpile": "lerna exec --parallel --ignore generator-thunderball -- babel src -d lib --ignore **/*.spec.js,**/*.spec.jsx,**/__test__/,**/__mocks__/"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
@@ -29,7 +29,8 @@
     "@babel/plugin-transform-runtime": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
-    "babel-eslint": "^9.0.0",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^21.0.2",
     "babel-plugin-add-module-exports": "^1.0.0",
     "babel-plugin-jsx-control-statements": "^4.0.0",
     "babel-plugin-lodash": "^3.2.11",
@@ -53,5 +54,8 @@
     "react-test-renderer": "^16.3.2",
     "rimraf": "^2.6.2",
     "supertest": "^3.0.0"
+  },
+  "dependencies": {
+    "react-hot-loader": "^4.6.3"
   }
 }

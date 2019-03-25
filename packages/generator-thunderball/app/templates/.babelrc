@@ -5,6 +5,7 @@
     ["@babel/preset-env"]
   ],
   "plugins": [
+    "react-hot-loader/babel",
     [
       "transform-imports",
       {
@@ -18,6 +19,7 @@
         }
       }
     ],
+    "@babel/plugin-transform-runtime",
     "lodash",
     "jsx-control-statements"
   ],

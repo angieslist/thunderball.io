@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`defines routes 1`] = `
+<Route
+  component={[Function]}
+  path="/todos"
+>
+  <IndexRoute
+    component={[Function]}
+  />
+</Route>
+`;

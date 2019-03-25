@@ -30,13 +30,7 @@ describe('generator-thunderball(:app)', () => {
 
   it('copies normal files in directories', () => {
     assert.file([
-      'src/app/browser/app.scss'
-    ]);
-  });
-
-  it('copies hidden files in directories', () => {
-    assert.file([
-      'src/app/common/.eslintrc'
+      'src/app/containers/app.scss'
     ]);
   });
 

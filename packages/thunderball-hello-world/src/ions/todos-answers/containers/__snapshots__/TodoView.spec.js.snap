@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TodoView renders without crashing 1`] = `
+<div>
+  <Helmet
+    defer={true}
+    encodeSpecialCharacters={true}
+    title="TODO"
+  />
+  <App />
+</div>
+`;

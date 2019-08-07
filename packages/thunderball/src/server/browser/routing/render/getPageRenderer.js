@@ -70,60 +70,28 @@ const memoizedGetHtmlProperties = memoize(getHtmlProperties,
   { maxAge: MEMOIZE_MAX_AGE, preFetch: true, normalizer: args => args[2] });
 
 const htmlCache = new NodeCache({ stdTTL: MEMOIZE_MAX_AGE / 1000, errorOnMissing: true });
-
-// Node stream that caches data that flows through it.
-const createCacheStream = (cacheKey) => {
-  const bufferedChunks = [];
-  return new Stream.Transform({
-    transform(data, enc, cb) {
-      bufferedChunks.push(data);
-      cb(null, data);
-    },
-    flush(cb) {
-      htmlCache.set(cacheKey, Buffer.concat(bufferedChunks));
-      cb();
-    },
-  });
-};
-
 const createShells = (html, state) => ({
   preShell: `<html ${html.htmlAttrs}><head>${html.head}</head><body ${html.bodyAttrs}><script type="text/javascript">window.__INITIAL_STATE__ = ${serialize(state)};</script>${html.scripts.beforeBody.join('')}<div id="app">`,
   postShell: `</div>${html.scripts.afterBody.join('')}</body></html>`,
 });
 
 const createCachedRenderer = ({ appShell, cacheKey, helmetContext, getHtmlProps, page, name, state }) => ({
-  toPromise: () => {
-    try {
-      const cachedHtml = htmlCache.get(cacheKey);
-      return Promise.resolve(cachedHtml);
-    } catch (err) {
-      return new Promise((resolve) => {
-        const renderedBody = renderToString(appShell);
-        const html = getHtmlProps(page, name, cacheKey, helmetContext);
-        const shells = createShells(html, state);
-        const renderedPage = `${shells.preShell}${renderedBody}${shells.postShell}`;
+  getHtml: () => {
+    const renderedBody = renderToString(appShell);
+    const html = getHtmlProps(page, name, cacheKey, helmetContext);
+    const shells = createShells(html, state);
+    const renderedPage = `${shells.preShell}${renderedBody}${shells.postShell}`;
 
-        htmlCache.set(cacheKey, renderedPage);
-        resolve(renderedPage);
-      });
-    }
+    return renderedPage;
   },
-  toStream: () => {
-    try {
-      const cachedHtml = htmlCache.get(cacheKey);
-      const passThrough = new Stream.PassThrough();
-      passThrough.end(cachedHtml);
-      return passThrough;
-    } catch (err) {
-      const cacheStream = createCacheStream(cacheKey);
-      const reactStream = renderToNodeStream(appShell);
-      const html = getHtmlProps(page, name, cacheKey, helmetContext);
-      const shells = createShells(html, state);
+  getHtmlStream: (cacheStream) => {
+    const reactStream = renderToNodeStream(appShell);
+    const html = getHtmlProps(page, name, cacheKey, helmetContext);
+    const shells = createShells(html, state);
 
-      cacheStream.write(shells.preShell, () => reactStream.pipe(cacheStream, { end: false }));
-      reactStream.on('end', () => cacheStream.end(shells.postShell));
-      return cacheStream;
-    }
+    cacheStream.write(shells.preShell, () => reactStream.pipe(cacheStream, { end: false }));
+    reactStream.on('end', () => cacheStream.end(shells.postShell));
+    return cacheStream;
   },
 });
 

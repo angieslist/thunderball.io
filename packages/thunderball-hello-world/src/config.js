@@ -12,6 +12,12 @@ export default {
     route: '/static',
     maxAge: '200d',
   },
+  redisHost: 'localhost',
+  ssr: {
+    caching: {
+      cacheType: 'redis',
+    },
+  },
   configureWebPack: config =>
     // Configure default webpack configuration?
     config,

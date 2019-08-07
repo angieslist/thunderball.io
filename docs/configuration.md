@@ -16,6 +16,8 @@ module.exports = {
   'hotReloadPort': process.env.HOT_RELOAD_PORT || 8080,
   // Where thunderball modules are kept (default: '/src/ions')
   'ionsDir': '/src/ions',
+  'redisHost': 'redis-mysite.com',
+  'redisPort': 6379,
   // Where assets like css & js are hosted
   'staticAssets': {
     path: '/static',
@@ -58,15 +60,6 @@ module.exports = {
       // Return 'undefined' to use no caching
       // If you have custom initial state, you may want a more complex cache key
       getCacheKey: (req) => url.parse(req.url).pathname
-      // Function to set the rapscallion cache strategy (default: an in memory cache)
-      // Implement this method to use redis, file system, etc
-      getCacheStrategy() {
-        return {
-          get: (key) => { // function to get a value }
-          set: (key, value) => { // function to set a value }
-        }
-      }
-    },
     // Define an object containing the http headers to use when getting the page
     // This is merged with header config from the client
     // Most useful for setting headers such as 'cache-control'
@@ -98,7 +91,7 @@ module.exports = {
   // Define instrumentation details
   'instrumentation': {
     providers: [{
-      // This tracer will wrap all instrumentation trace functions 
+      // This tracer will wrap all instrumentation trace functions
       // with a stopwatch and log to the console
       createTracer: (name, func) => {
         return () => {

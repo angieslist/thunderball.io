@@ -7,6 +7,7 @@ jobs:
         - test-gh-pages
     docker:
       - image: circleci/node:carbon
+      - image: redis
     steps:
       - run:
           name: Add node_module bin to path

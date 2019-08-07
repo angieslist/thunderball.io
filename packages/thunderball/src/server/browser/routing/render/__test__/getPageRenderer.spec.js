@@ -1,5 +1,7 @@
 import Helmet from 'react-helmet-async';
 import { Stream } from 'stream';
+import NodeCache from 'node-cache';
+import { promisify } from 'util';
 import getPageRenderer, { getHtmlProperties } from '../getPageRenderer';
 
 const streamToPromise = stream => (new Promise((resolve, reject) => {
@@ -8,6 +10,23 @@ const streamToPromise = stream => (new Promise((resolve, reject) => {
   stream.on('end', () => resolve(buffer));
   stream.on('error', () => reject());
 }));
+
+const createCacheStream = (cacheKey, setHtmlCache) => {
+  const bufferedChunks = [];
+  return new Stream.Transform({
+    transform(data, enc, cb) {
+      bufferedChunks.push(data);
+      cb(null, data);
+    },
+    flush(cb) {
+      setHtmlCache(cacheKey, Buffer.concat(bufferedChunks));
+      cb();
+    },
+  });
+};
+
+const htmlCache = new NodeCache({ stdTTL: 3600000 / 1000, errorOnMissing: true });
+const promisifiedHtmlCacheSet = promisify(htmlCache.set);
 
 describe('getPageRenderer.js', () => {
   let webpackIsomorphicTools;
@@ -72,10 +91,10 @@ describe('getPageRenderer.js', () => {
         },
       });
 
-      expect(pageRenderer.toPromise).toBeInstanceOf(Function);
-      expect(pageRenderer.toStream).toBeInstanceOf(Function);
+      expect(pageRenderer.getHtml).toBeInstanceOf(Function);
+      expect(pageRenderer.getHtmlStream).toBeInstanceOf(Function);
     });
-    it('renders html to a promise', async () => {
+    it('renders html', async () => {
       const pageRenderer = getPageRenderer({
         store,
         renderProps,
@@ -101,9 +120,9 @@ describe('getPageRenderer.js', () => {
         },
       });
 
-      const html = await pageRenderer.toPromise();
+      const html = pageRenderer.getHtml();
       expect(html).toMatchSnapshot();
-      const cachedHtml = await pageRenderer.toPromise();
+      const cachedHtml = pageRenderer.getHtml();
       expect(cachedHtml).toMatchSnapshot();
     });
     it('renders html to a node stream', async () => {
@@ -132,11 +151,11 @@ describe('getPageRenderer.js', () => {
         },
       });
 
-      const stream = pageRenderer.toStream();
+      const stream = pageRenderer.getHtmlStream(createCacheStream('key', promisifiedHtmlCacheSet));
       expect(stream).toBeInstanceOf(Stream.Readable);
       const html = await streamToPromise(stream);
       expect(html).toMatchSnapshot();
-      const cachedStream = pageRenderer.toStream();
+      const cachedStream = pageRenderer.getHtmlStream(createCacheStream('key', promisifiedHtmlCacheSet));
       const cachedHtml = await streamToPromise(cachedStream);
       expect(cachedHtml).toMatchSnapshot();
     });

@@ -40,6 +40,78 @@ Object {
 }
 `;
 
+exports[`getPageRenderer.js getPageRenderer renders html 1`] = `
+
+<html>
+  <head>
+    <link href="commonStyle"
+          rel="stylesheet"
+          key="0"
+    >
+    <link href="testStyle"
+          rel="stylesheet"
+          key="1"
+    >
+  </head>
+  <body>
+    <script type="text/javascript">
+      window.__INITIAL_STATE__ = undefined;
+    </script>
+    <div id="app">
+    </div>
+    <script type="text/javascript"
+            src="https://cdn.polyfill.io/v2/polyfill.min.js?features="
+    >
+    </script>
+    <script type="text/javascript"
+            src="commonJs"
+    >
+    </script>
+    <script type="text/javascript"
+            src="testJs"
+    >
+    </script>
+  </body>
+</html>
+
+`;
+
+exports[`getPageRenderer.js getPageRenderer renders html 2`] = `
+
+<html>
+  <head>
+    <link href="commonStyle"
+          rel="stylesheet"
+          key="0"
+    >
+    <link href="testStyle"
+          rel="stylesheet"
+          key="1"
+    >
+  </head>
+  <body>
+    <script type="text/javascript">
+      window.__INITIAL_STATE__ = undefined;
+    </script>
+    <div id="app">
+    </div>
+    <script type="text/javascript"
+            src="https://cdn.polyfill.io/v2/polyfill.min.js?features="
+    >
+    </script>
+    <script type="text/javascript"
+            src="commonJs"
+    >
+    </script>
+    <script type="text/javascript"
+            src="testJs"
+    >
+    </script>
+  </body>
+</html>
+
+`;
+
 exports[`getPageRenderer.js getPageRenderer renders html to a node stream 1`] = `
 
 <html>
@@ -77,78 +149,6 @@ exports[`getPageRenderer.js getPageRenderer renders html to a node stream 1`] = 
 `;
 
 exports[`getPageRenderer.js getPageRenderer renders html to a node stream 2`] = `
-
-<html>
-  <head>
-    <link href="commonStyle"
-          rel="stylesheet"
-          key="0"
-    >
-    <link href="testStyle"
-          rel="stylesheet"
-          key="1"
-    >
-  </head>
-  <body>
-    <script type="text/javascript">
-      window.__INITIAL_STATE__ = undefined;
-    </script>
-    <div id="app">
-    </div>
-    <script type="text/javascript"
-            src="https://cdn.polyfill.io/v2/polyfill.min.js?features="
-    >
-    </script>
-    <script type="text/javascript"
-            src="commonJs"
-    >
-    </script>
-    <script type="text/javascript"
-            src="testJs"
-    >
-    </script>
-  </body>
-</html>
-
-`;
-
-exports[`getPageRenderer.js getPageRenderer renders html to a promise 1`] = `
-
-<html>
-  <head>
-    <link href="commonStyle"
-          rel="stylesheet"
-          key="0"
-    >
-    <link href="testStyle"
-          rel="stylesheet"
-          key="1"
-    >
-  </head>
-  <body>
-    <script type="text/javascript">
-      window.__INITIAL_STATE__ = undefined;
-    </script>
-    <div id="app">
-    </div>
-    <script type="text/javascript"
-            src="https://cdn.polyfill.io/v2/polyfill.min.js?features="
-    >
-    </script>
-    <script type="text/javascript"
-            src="commonJs"
-    >
-    </script>
-    <script type="text/javascript"
-            src="testJs"
-    >
-    </script>
-  </body>
-</html>
-
-`;
-
-exports[`getPageRenderer.js getPageRenderer renders html to a promise 2`] = `
 
 <html>
   <head>

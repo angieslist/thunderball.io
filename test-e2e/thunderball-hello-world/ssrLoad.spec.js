@@ -1,4 +1,7 @@
 import fetch from 'node-fetch';
+import Redis from 'ioredis';
+
+const redis = new Redis({ host: 'localhost' });
 
 function normalizeText(text) {
   // normalize hashed assets
@@ -14,8 +17,11 @@ describe('ssrLoad', () => {
     it('returns the page', async () => {
       const response = await fetch('http://localhost:8000/todo-answers/server-fetch-example');
       expect(response).toHaveProperty('status', 200);
-      const text = normalizeText(await response.text());
-      expect(text).toMatchSnapshot();
+      const responseText = await response.text();
+      const normalizedText = normalizeText(responseText);
+      const cachedHtmlAndStatus = await redis.get('/todo-answers/server-fetch-example');
+      expect(cachedHtmlAndStatus).toBe(`200${responseText}`);
+      expect(normalizedText).toMatchSnapshot();
     });
   });
 });

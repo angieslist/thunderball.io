@@ -43,6 +43,7 @@
     "eslint-watch": "^3.1.2",
     "gitbook-cli": "^2.3.2",
     "gulp": "^3.9.1",
+    "ioredis": "^4.11.2",
     "jest": "^24.1.0",
     "jest-junit-reporter": "^1.1.0",
     "jest-serializer-html": "^5.0.0",

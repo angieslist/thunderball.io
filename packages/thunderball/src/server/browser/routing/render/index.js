@@ -3,55 +3,90 @@ import url from 'url';
 import _ from 'lodash';
 import memoize from 'memoizee';
 import getStoreAndRoutes from 'thunderball-client/lib/render/getStoreAndRoutes';
+import { Stream } from 'stream';
 import logger from '../../../logger';
 import constants from '../../../../constants';
 import reduxSsrActionMiddleware from './reduxSsrActionMiddleware';
 import getInitialState from './getInitialState';
 import getPageRenderer from './getPageRenderer';
 import notFoundHandler from '../../../handlers/notFoundHandler';
+import { get, set } from '../../../cache';
 // This is running on the server, do not allow arbitrary ajax requests.
 import '../../../noBlindFetchOnServer';
 
 const MEMOIZE_MAX_AGE = _.get(constants.APP_CONFIG, 'ssr.caching.memoizeMaxAge', 3600000);
 
+const createCacheStream = (cacheKey, setHtmlCache, status) => {
+  const bufferedChunks = [Buffer.from(status.toString(), 'utf-8')];
+  return new Stream.Transform({
+    transform(data, enc, cb) {
+      bufferedChunks.push(data);
+      cb(null, data);
+    },
+    flush(cb) {
+      setHtmlCache(cacheKey, Buffer.concat(bufferedChunks));
+      cb();
+    },
+  });
+};
+
+const formatCacheValue = ({ html, statusCode = '200' }) => `${statusCode}${html}`;
+
+const parseCacheValue = (value) => {
+  if (value.length < 4) {
+    throw new Error('Invalid cache value');
+  }
+  return {
+    html: value.slice(3),
+    statusCode: value.slice(0, 3),
+  };
+};
+
+const sendResponse = ({ pageRendererArgs, res, shouldStream, statusCode }) => {
+  const pageRenderer = getPageRenderer({ ...pageRendererArgs });
+  if (!shouldStream) {
+    const html = pageRenderer.getHtml();
+    const htmlWithDocType = `<!DOCTYPE html>${html}`;
+    set(pageRendererArgs.reactRendererCacheKey, formatCacheValue({ html: htmlWithDocType }));
+    res.send(htmlWithDocType);
+  } else {
+    res.write('<!DOCTYPE html>');
+    pageRenderer
+      .getHtmlStream(createCacheStream(pageRendererArgs.reactRendererCacheKey, set, statusCode))
+      .pipe(res);
+  }
+};
+
 const instrumentationProviders = _.get(constants.APP_CONFIG, 'instrumentation.providers', [])
   .filter(provider => typeof provider.createTracer === 'function');
 
-// Memoize on full url
-const memoziedCreateMemoryHistory = memoize(createMemoryHistory,
-  { maxAge: MEMOIZE_MAX_AGE });
 // Memoize on cacheKey
 const memoizedGetStoreAndRoutes = memoize(getStoreAndRoutes,
   { maxAge: MEMOIZE_MAX_AGE, normalizer: args => args[6] });
 
-const memoizedSsrActionMiddleware = memoize(reduxSsrActionMiddleware,
-  { maxAge: MEMOIZE_MAX_AGE,
-    normalizer: args => args[4],
-    promise: true,
-  });
-
 /* eslint max-params: 0 */
-const getData = (initialState, createRoutes, injectors, pageProps, shouldMemoize, cacheKey, originalUrl) => {
-  let memoryHistory;
-  let result = {};
+const getData
+  = (initialState, createRoutes, injectors, pageProps, shouldMemoize, cacheKey, originalUrl) => {
+    let memoryHistory;
+    let result = {};
 
-  instrumentationProviders.reduce(
-    (aggregateVal, provider) => provider.createTracer('thunderball:createHistory', aggregateVal),
-    () => {
-      memoryHistory = (shouldMemoize ? memoziedCreateMemoryHistory : createMemoryHistory)(originalUrl);
-    },
-  )();
+    instrumentationProviders.reduce(
+      (aggregateVal, provider) => provider.createTracer('thunderball:createHistory', aggregateVal),
+      () => {
+        memoryHistory = createMemoryHistory(originalUrl);
+      },
+    )();
 
-  instrumentationProviders.reduce(
-    (aggregateVal, provider) => provider.createTracer('thunderball:getStoreAndRoutes', aggregateVal),
-    () => {
-      result = (cacheKey && shouldMemoize ? memoizedGetStoreAndRoutes : getStoreAndRoutes)(
-        initialState, createRoutes, memoryHistory, undefined, injectors, pageProps, cacheKey);
-    },
-  )();
+    instrumentationProviders.reduce(
+      (aggregateVal, provider) => provider.createTracer('thunderball:getStoreAndRoutes', aggregateVal),
+      () => {
+        result = (cacheKey && shouldMemoize ? memoizedGetStoreAndRoutes : getStoreAndRoutes)(
+          initialState, createRoutes, memoryHistory, undefined, injectors, pageProps, cacheKey);
+      },
+    )();
 
-  return result;
-};
+    return result;
+  };
 
 const getSsrConfig = (pageConfig, appConfig) => {
   const ssrConfig = { ...(appConfig.ssr || {}), ...(pageConfig.ssr || {}) };
@@ -75,13 +110,16 @@ const render = (page, name, createRoutes, injectors = []) => {
       // Then render the page
       .then((initialState) => {
         const pathName = url.parse(req.url).pathname;
-        // Determine cacheKey to use or default to pathName, cacheKey function could return undefined
+        // Determine cacheKey to use or
+        // default to pathName, cacheKey function could return undefined
         const cacheKey = _.get(ssrConfig, 'caching.getCacheKey', () => pathName)(req);
         const reactRendererCacheKey = _.get(ssrConfig, 'caching.getReactRendererCacheKey', () => pathName)(req);
 
         // Get store and routes for the page
         const { store, routes, history } = getData(
-          initialState, createRoutes, injectors, page.props, shouldMemoize, cacheKey, req.originalUrl);
+          initialState, createRoutes, injectors, page.props,
+          shouldMemoize, cacheKey, req.originalUrl,
+        );
 
         // Match the route based on the requested url
         /* eslint no-param-reassign: 0 */
@@ -122,57 +160,84 @@ const render = (page, name, createRoutes, injectors = []) => {
                     res.setHeader(key, value);
                   });
                 }
+                const shouldStream = _.get(ssrConfig, 'useStreaming');
 
+                // note for caching we cache the 3 digit http status and the html
                 const renderPage = () => {
-                  // TODO: We could memoize all code to the 'catch' statement in a function using 'cacheKey' as the memoize key
-                  // this would effectively cache the entire html string so we can then res.send(html) the memoized html string
-                  // We would remove the toStream option if we did this as it would be unnecessary
-                  const pageRenderer = getPageRenderer({
-                    store,
-                    renderProps,
-                    req,
-                    page,
-                    name,
-                    cacheKey,
-                    reactRendererCacheKey,
-                    ssrConfig,
-                    helmetContext: {},
-                  });
-
-                  if (!_.get(ssrConfig, 'useStreaming')) {
-                    pageRenderer.toPromise()
-                      .then((html) => {
-                        res.send(`<!DOCTYPE html>${html}`);
-                      }).catch((e) => {
-                        next(e);
+                  logger.debug('RenderPage - Cache miss %s on key %s Streaming %s', req.url, reactRendererCacheKey, shouldStream);
+                  reduxSsrActionMiddleware(store, renderProps, req, res, reactRendererCacheKey)
+                    .then(() => {
+                      sendResponse({
+                        pageRendererArgs: {
+                          store,
+                          renderProps,
+                          req,
+                          page,
+                          name,
+                          cacheKey,
+                          reactRendererCacheKey,
+                          ssrConfig,
+                          helmetContext: {},
+                        },
+                        res,
+                        shouldStream,
+                        statusCode: '200',
                       });
-                  } else {
-                    res.write('<!DOCTYPE html>');
-
-                    pageRenderer.toStream()
-                      .pipe(res);
-                  }
+                    })
+                    .catch((err) => {
+                      const maybeSsrLoadFailFn = renderProps.components.reduce((acc, component) => {
+                        const maybeSsrFailFn = _.get(component, 'ssrLoadFail') || _.get(component, 'WrappedComponent.ssrLoadFail');
+                        if (maybeSsrFailFn) {
+                          return maybeSsrFailFn;
+                        }
+                        return acc;
+                      });
+                      if (maybeSsrLoadFailFn) {
+                        maybeSsrLoadFailFn({ err, res });
+                        sendResponse({
+                          pageRendererArgs: {
+                            store,
+                            renderProps,
+                            req,
+                            page,
+                            name,
+                            cacheKey,
+                            reactRendererCacheKey,
+                            ssrConfig,
+                            helmetContext: {},
+                          },
+                          res,
+                          shouldStream,
+                          statusCode: res.statusCode,
+                        });
+                      } else {
+                        next(err);
+                      }
+                    });
                 };
 
-                memoizedSsrActionMiddleware(store, renderProps, req, res, reactRendererCacheKey)
-                  .then(() => {
-                    renderPage();
-                  })
-                  .catch((err) => {
-                    const maybeSsrLoadFailFn = renderProps.components.reduce((acc, component) => {
-                      const maybeSsrFailFn = _.get(component, 'ssrLoadFail') || _.get(component, 'WrappedComponent.ssrLoadFail');
-                      if (maybeSsrFailFn) {
-                        return maybeSsrFailFn;
+                // allow killing of cache
+                const configBreakCacheQueryParam = _.get(constants.APP_CONFIG, 'ssr.caching.breakCacheQueryParam');
+                const breakCacheQueryParam = _.get(req, `query.${configBreakCacheQueryParam}`, false);
+                if (configBreakCacheQueryParam && breakCacheQueryParam) {
+                  renderPage();
+                } else {
+                  get(reactRendererCacheKey)
+                    .then((hit) => {
+                      if (!hit) {
+                        renderPage();
+                      } else {
+                        logger.debug('RenderPage - Cache hit %s on key %s Streaming %s', req.url, reactRendererCacheKey, shouldStream);
+                        // cache hit will look like statusCode<content>
+                        const { html, statusCode } = parseCacheValue(hit);
+                        res.status(statusCode);
+                        res.send(html);
                       }
-                      return acc;
-                    });
-                    if (maybeSsrLoadFailFn) {
-                      maybeSsrLoadFailFn({ err, res });
+                    })
+                    .catch(() => {
                       renderPage();
-                    } else {
-                      next(err);
-                    }
-                  });
+                    });
+                }
               } catch (err) {
                 next(err);
                 return;
@@ -186,7 +251,8 @@ const render = (page, name, createRoutes, injectors = []) => {
             // Set composedFunc to the 'generate' method, then for every provider we compose around
             // 'generate' the new function from the provider.  So in the end it calls all providers
             // and the original function.
-            // So if there were 3 providers it would call: provider3 -> provider2 -> provider1 -> generate
+            // So if there were 3 providers it would call:
+            // provider3 -> provider2 -> provider1 -> generate
             instrumentationProviders.reduce(
               (aggregateVal, provider) => provider.createTracer('thunderball:renderPage', aggregateVal),
               generate,

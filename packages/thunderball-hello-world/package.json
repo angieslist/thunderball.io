@@ -9,6 +9,8 @@
     "build": "gulp build -p",
     "test": "jest"
   },
+  "homepage": "http://thunderball.io",
+  "repository": "angieslist/thunderball.io",
   "dependencies": {
     "prop-types": "^15.5.8",
     "react": "^16.3.2",

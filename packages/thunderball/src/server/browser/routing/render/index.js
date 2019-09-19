@@ -177,9 +177,7 @@ const render = (page, name, createRoutes, injectors = []) => {
           },
         );
       })
-      .catch((err) => {
-        next(JSON.stringify(err));
-      });
+      .catch(next);
   };
 };
 

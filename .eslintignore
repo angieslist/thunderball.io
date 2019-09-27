@@ -5,3 +5,4 @@
 packages/generator-thunderball/**/templates/**
 **/build/**
 *.generated.js
+_book/

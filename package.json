@@ -5,6 +5,7 @@
     "postbootstrap": "run-s link-react link-to-react",
     "build": "run-s clean transpile lint",
     "clean": "rimraf packages/*/lib/ packages/*/build/",
+    "commit": "git-cz",
     "docs-build": "npm run docs-prepare && gitbook build",
     "docs-clean": "rimraf _book",
     "docs-prepare": "gitbook install",
@@ -36,6 +37,7 @@
     "babel-plugin-lodash": "^3.2.11",
     "babel-plugin-transform-imports": "^1.4.1",
     "babel-preset-node6": "^11.0.0",
+    "cz-conventional-changelog": "^3.0.2",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.1",
@@ -58,5 +60,10 @@
   },
   "dependencies": {
     "react-hot-loader": "^4.6.3"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }

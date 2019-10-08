@@ -21,9 +21,6 @@ jobs:
           name: Make a folder to store build artifacts
           command: mkdir -p build-artifacts
       - run:
-          name: Make a folder to store test artifacts
-          command: mkdir -p test-artifacts
-      - run:
           name: Run npm config
           command: |
             npm config set package-lock false &&
@@ -42,25 +39,22 @@ jobs:
           name: Run npm build
           command: NODE_ENV=production npm run build
       - run:
-          name: Run npm test-ci
-          command: npm run test-ci
+          name: Test
+          command: JEST_JUNIT_OUTPUT_DIR="$(pwd)/reports/junit" npm run test-ci
+      - store_test_results:
+          path: reports/junit
+      - store_artifacts:
+          path: reports/junit
+          destination: /
+      - run:
+          name: Copy Coverage Info
+          command: cp -vR coverage build-artifacts
       - run:
           name: Run build hello world
           command: cd ./packages/thunderball-hello-world && gulp build -p && cd ../..
       - run:
           name: Run npm test-e2e
           command: npm run test-e2e
-      - run:
-          name: Copy Test Results
-          command: cp -v test-report.xml test-artifacts
-      - run:
-          name: Copy Test Report Into Artifacts
-          command: cp -v test-report.xml build-artifacts
-      - run:
-          name: Copy Coverage Info
-          command: cp -vR coverage build-artifacts
-      - store_test_results:
-          path: test-artifacts
       - store_artifacts:
           path: build-artifacts
           destination: /

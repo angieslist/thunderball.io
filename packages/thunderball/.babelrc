@@ -17,8 +17,7 @@
         "regenerator": false
       },
     ],
-    "add-module-exports",
-    "lodash"
+    "add-module-exports"
   ],
   "env": {
     "development": {
@@ -28,6 +27,7 @@
     },
     "production": {
       "plugins": [
+        "lodash",
         "jsx-control-statements",
         "@babel/plugin-transform-react-constant-elements",
         "@babel/plugin-transform-react-inline-elements"

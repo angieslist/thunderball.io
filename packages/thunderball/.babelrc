@@ -1,18 +1,23 @@
 {
   "presets": [
-    "react",
-    "es2015",
-    "stage-0"
+    "@babel/preset-react",
+    [
+    "@babel/preset-env",
+      {
+      "targets": {
+        "node": "8"
+        }
+      }
+    ]
   ],
   "plugins": [
     [
-      "transform-runtime", {
-        "polyfill": false,
+      "@babel/plugin-transform-runtime",
+      {
         "regenerator": false
-      }
+      },
     ],
-    "add-module-exports",
-    "lodash"
+    "add-module-exports"
   ],
   "env": {
     "development": {
@@ -22,9 +27,10 @@
     },
     "production": {
       "plugins": [
+        "lodash",
         "jsx-control-statements",
-        "transform-react-constant-elements",
-        "transform-react-inline-elements"
+        "@babel/plugin-transform-react-constant-elements",
+        "@babel/plugin-transform-react-inline-elements"
       ]
     }
   }

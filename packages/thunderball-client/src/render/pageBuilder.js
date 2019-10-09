@@ -22,6 +22,9 @@ export default function pageBuilder(createRoutes, injectors = [], defaultLocale,
     /* eslint no-param-reassign: 0 */
     injectors = [injectors];
   }
+  // support ES modules or commonjs
+  createRoutes = createRoutes.default || createRoutes;
+  injectors = injectors.map(x => x.default || x);
 
   // Initial state is set isomorphically at first
   const initialState = (typeof window === 'object') ? window.__INITIAL_STATE__ : {};

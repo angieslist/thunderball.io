@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`beforeConfigureStore registers reducers 1`] = `
+Object {
+  "middleware": Array [
+    [Function],
+  ],
+  "reducers": Object {
+    "todos": [Function],
+    "visibilityFilter": [Function],
+  },
+}
+`;
+
+exports[`is a properly formatted injectors object 1`] = `
+Object {
+  "beforeConfigureStore": [Function],
+}
+`;

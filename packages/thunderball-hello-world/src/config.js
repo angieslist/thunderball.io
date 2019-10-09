@@ -1,14 +1,22 @@
-const packageJson = require('../package.json');
+import packageJson from '../package.json';
 
-module.exports = {
+const port = process.env.PORT || 8000;
+
+export default {
   appVersion: packageJson.version,
   appName: packageJson.name,
-  port: process.env.PORT || 8000,
+  port,
   hotReloadPort: process.env.HOT_RELOAD_PORT || 8080,
   ionsDir: '/src/ions',
   staticAssets: {
     route: '/static',
     maxAge: '200d',
+  },
+  redisHost: 'localhost',
+  ssr: {
+    caching: {
+      cacheType: 'redis',
+    },
   },
   configureWebPack: config =>
     // Configure default webpack configuration?
@@ -20,10 +28,10 @@ module.exports = {
     locales: ['en'],
     defaultLocale: 'en',
   },
-  proxyRoutes: [
-    // Add proxy routes here such as:
-    // { path: 'api/twitter', proxyUrl: 'https://api.twitter.com/' }
-  ],
+  proxyRoutes: [{
+    path: 'todos-api',
+    proxyUrl: `http://127.0.0.1:${port}/api`,
+  }],
   clientConfigKeys: [
     'appVersion', 'appName',
   ],

@@ -10,6 +10,7 @@ import webpackIsomorphicAssets from './assets';
 import constants from '../constants';
 import getIndexFileText from './getIndexFileText';
 import getStylesLoaders from './getStylesLoaders';
+import eslintFormatter from './eslintFormatter';
 
 const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(webpackIsomorphicAssets);
 
@@ -19,7 +20,7 @@ process.traceDeprecation = false;
 export default function makeConfig(isDevelopment, hotPort, hotHost) {
   // Determine root pages
   const pages = {};
-  const pagePrereqs = ['babel-polyfill'];
+  const pagePrereqs = ['@babel/polyfill'];
   (constants.APP_IONS || [])
     // Filter only to ions that define a browser page
     .filter(ion => _.get(ion, 'config.browser.page'))
@@ -70,29 +71,29 @@ export default function makeConfig(isDevelopment, hotPort, hotHost) {
           options: {
             limit: 1, // only 1 favicon
           },
-        }, {
+        },
+        {
           test: /\.jsx?$/,
           include: constants.SRC_DIR,
-          loader: 'babel-loader',
-          options: {
-            cacheDirectory: true,
-            plugins: ['transform-runtime', 'add-module-exports', 'lodash'],
-            presets: [['es2015'], 'react', 'stage-0'],
-            env: {
-              development: {
-                plugins: [
-                  'jsx-control-statements',
-                ],
-              },
-              production: {
-                plugins: [
-                  'jsx-control-statements',
-                  'transform-react-constant-elements',
-                  'transform-react-inline-elements',
-                ],
-              },
+          use: [{
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true,
+              presets: ['@babel/preset-react', ['@babel/preset-env']],
             },
           },
+          {
+            loader: 'eslint-loader',
+            options: {
+              useEslintrc: true,
+              fix: false,
+              cache: true,
+              emitWarning: isDevelopment,
+              failOnError: !isDevelopment,
+              formatter: eslintFormatter,
+            },
+          },
+          ],
         },
         ...getStylesLoaders(isDevelopment),
       ],

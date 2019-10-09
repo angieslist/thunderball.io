@@ -5,6 +5,7 @@
     "postbootstrap": "run-s link-react link-to-react",
     "build": "run-s clean transpile lint",
     "clean": "rimraf packages/*/lib/ packages/*/build/",
+    "commit": "git-cz",
     "docs-build": "npm run docs-prepare && gitbook build",
     "docs-clean": "rimraf _book",
     "docs-prepare": "gitbook install",
@@ -17,24 +18,25 @@
     "lint": "esw . --ext .js,.jsx --cache --changed",
     "start": "run-p \"transpile -- --watch\" \"lint -- --watch --fix\"",
     "test": "jest --watch",
-    "test-ci": "jest --ci --coverage --testResultsProcessor=jest-junit-reporter",
+    "test-ci": "jest --ci --coverage --runInBand --reporters=default --reporters=jest-junit",
     "test-e2e": "run-p --race test-e2e-server test-e2e-jest",
     "test-e2e-jest": "jest --config=./test-e2e/jest.config.js",
     "test-e2e-server": "cd packages/thunderball-hello-world && NODE_ENV=production node index",
-    "transpile": "lerna exec --parallel --ignore generator-thunderball -- babel src -d lib --ignore *.spec.js,**/__test__/**"
+    "transpile": "lerna exec --parallel --ignore generator-thunderball -- babel src -d lib --ignore **/*.spec.js,**/*.spec.jsx,**/__test__/,**/__mocks__/"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-eslint": "^8.0.0",
-    "babel-jest": "^21.0.2",
-    "babel-plugin-add-module-exports": "^0.2.1",
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-eslint": "^10.0.1",
+    "babel-plugin-add-module-exports": "^1.0.0",
+    "babel-plugin-jsx-control-statements": "^4.0.0",
     "babel-plugin-lodash": "^3.2.11",
     "babel-plugin-transform-imports": "^1.4.1",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-es2015": "^6.24.1",
     "babel-preset-node6": "^11.0.0",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
+    "cz-conventional-changelog": "^3.0.2",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.1",
@@ -42,10 +44,10 @@
     "eslint-watch": "^3.1.2",
     "gitbook-cli": "^2.3.2",
     "gulp": "^3.9.1",
-    "jest": "^22.4.2",
-    "jest-junit-reporter": "^1.1.0",
+    "ioredis": "^4.11.2",
+    "jest": "^24.1.0",
+    "jest-junit": "^8.0.0",
     "jest-serializer-html": "^5.0.0",
-    "jsx-control-statements": "^3.2.6",
     "lerna": "^2.2.0",
     "node-fetch": "^1.7.3",
     "npm-run-all": "^4.1.1",
@@ -54,5 +56,13 @@
     "react-test-renderer": "^16.3.2",
     "rimraf": "^2.6.2",
     "supertest": "^3.0.0"
+  },
+  "dependencies": {
+    "react-hot-loader": "^4.6.3"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }

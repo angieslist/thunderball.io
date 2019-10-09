@@ -2,37 +2,52 @@
   "name": "thunderball-hello-world",
   "private": true,
   "version": "0.2.0",
-  "description": "Example Thunderball project for demo and integration testing",
+  "description": "Thunderball Example App",
   "main": "index.js",
   "scripts": {
     "start": "gulp",
     "build": "gulp build -p",
     "test": "jest"
   },
+  "homepage": "http://thunderball.io",
+  "repository": "angieslist/thunderball.io",
   "dependencies": {
+    "eslint": "^4.19.1",
+    "json-server": "^0.14.2",
     "prop-types": "^15.5.8",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
-    "react-helmet": "^5.0.3",
+    "react-helmet-async": "^0.1.0",
+    "react-hot-loader": "^4.6.3",
+    "react-redux": "^5.0.4",
     "react-router": "^3.2.1",
     "recompose": "^0.25.1",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.3.0",
     "thunderball": "^0.2.0",
     "thunderball-client": "^0.2.0"
   },
   "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "empty": "^0.10.1",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.1",
     "eslint-config-airbnb": "^15.1.0",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-jest": "^21.0.2",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jest": "^21.17.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-jsx-control-statements": "^2.2.0",
-    "eslint-plugin-react": "^7.3.0",
+    "eslint-plugin-jsx-control-statements": "^2.2.1",
+    "eslint-plugin-react": "^7.10.0",
     "eslint-plugin-thunderball": "^0.1.2",
     "generator-thunderball": "^0.2.0",
     "gulp": "^3.9.1",
-    "jest": "^22.4.2",
-    "react-test-renderer": "^16.3.2"
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^24.1.0",
+    "react-test-renderer": "^16.3.2",
+    "redux-mock-store": "^1.5.3"
+  },
+  "peerDependencies": {
+    "react-intl": "*"
   }
 }

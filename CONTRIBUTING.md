@@ -2,6 +2,8 @@
 
 Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
 
+Commits should follow the [Angular commit convention](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines). You can use the `commit` npm script for help in formatting your commit messages (using [Commitizen](https://www.npmjs.com/package/commitizen)).
+
 ## Working on the Thunderball library with Lerna and `npm link`
 (this is not necessary for Thunderball app development, only for work being done on the Thunderball library itself)
 

@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`defines routes 1`] = `
+<Route
+  component={[Function]}
+  path="/todo-answers"
+>
+  <IndexRoute
+    component={[Function]}
+  />
+  <Route
+    component={[Function]}
+    path="unfiltered"
+  />
+  <Route
+    component={[Function]}
+    path="server-fetch-example"
+  />
+  <Route
+    component={[Function]}
+    path="browser-fetch-example"
+  />
+</Route>
+`;

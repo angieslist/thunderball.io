@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ssrLoad Get page that uses ssrLoad returns the page 1`] = `
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title data-rh="true">
+      Server Fetch Todos - Thunderball Hello World
+    </title>
+    <link data-rh="true"
+          rel="shortcut icon"
+          type="image/png"
+          href="/assets/fb8bTEST-CHECKSUMe246c3363bfcc4f601.png"
+    >
+    <link data-rh="true"
+          rel="stylesheet"
+          href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic"
+    >
+    <link data-rh="true"
+          rel="stylesheet"
+          href="//cdn.rawgit.com/necolas/TEST-HASH.css/master/TEST-HASH.css"
+    >
+    <link data-rh="true"
+          rel="stylesheet"
+          href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css"
+    >
+    <link href="/assets/commons-TEST-HASH.css"
+          rel="stylesheet"
+          key="0"
+    >
+  </head>
+  <body>
+    <script type="text/javascript">
+      window.__INITIAL_STATE__ = {"config":{"appVersion":"TEST-VERSION","appName":"thunderball-hello-world"},"device":{"host":"http:\\u002F\\u002Flocalhost:8000"},"routing":{"locationBeforeTransitions":{"pathname":"\\u002Ftodo-answers\\u002Fserver-fetch-example","search":"","hash":"","action":"POP","key":null,"query":{}}},"todos":[{"id":1,"text":"Learn React","completed":true},{"id":2,"text":"Learn Thunderball","completed":false}],"visibilityFilter":"SHOW_ALL"};
+    </script>
+    <div id="app">
+      <div data-reactroot>
+        <div class="container">
+          <div class="row">
+            <div class="column">
+              <div>
+                <div>
+                  <h1>
+                    Todos
+                  </h1>
+                  <div>
+                    <div>
+                      <input type="checkbox"
+                             id="todo-1"
+                             checked
+                      >
+                      <label class="label-inline"
+                             for="todo-1"
+                      >
+                        Learn React
+                      </label>
+                    </div>
+                    <div>
+                      <input type="checkbox"
+                             id="todo-2"
+                      >
+                      <label class="label-inline"
+                             for="todo-2"
+                      >
+                        Learn Thunderball
+                      </label>
+                    </div>
+                  </div>
+                  <hr>
+                  <a href="/todo-answers">
+                    Todos
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript"
+            src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en"
+    >
+    </script>
+    <script type="text/javascript"
+            src="/assets/commons-TEST-HASH.js"
+    >
+    </script>
+    <script type="text/javascript"
+            src="/assets/todos-answers-TEST-HASH.js"
+    >
+    </script>
+  </body>
+</html>
+
+`;

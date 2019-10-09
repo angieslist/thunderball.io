@@ -30,7 +30,6 @@ if (!constants.IS_PRODUCTION) {
     console.error(err);
   });
 }
-
 // Start server
 const port = _.get(constants.APP_CONFIG, 'port', 8000);
 const server = app.listen(port, () => {

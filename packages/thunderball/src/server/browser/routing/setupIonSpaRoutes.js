@@ -9,7 +9,7 @@ import constants from '../../../constants';
 * @param  {} ionDirectory='The directory for the ion'
 * @param  {} filePath='The file path to be obtained'
 */
-const getIonPath = (ionDirectory: String = '', filePath: String = '') =>
+const getIonPath = (ionDirectory = '', filePath = '') =>
   // If it starts with a '.', then its a relative path, otherwise assume it's absolute
   ((filePath && filePath.charAt(0) === '.') ?
     path.join(constants.APP_IONS_DIR, ionDirectory, filePath) :
@@ -52,11 +52,15 @@ export default function setupStaticFolderRoutes(app) {
         if (!page.path) {
           logger.warn(`A routes file was defined for "${page.name}", but no "path" was specified`);
         } else {
-          const createRoutes = require(getIonPath(ion.dir, page.createRoutes));
+          let createRoutes = require(getIonPath(ion.dir, page.createRoutes));
+          // support ES modules or commonjs
+          createRoutes = createRoutes.default || createRoutes;
 
-          const injectors = (Array.isArray(page.injectors) ? page.injectors : [page.injectors])
+          let injectors = (Array.isArray(page.injectors) ? page.injectors : [page.injectors])
             .filter(injector => typeof injector === 'string' && injector.length > 0)
             .map(injector => require(getIonPath(ion.dir, injector)));
+          // support ES modules or commonjs
+          injectors = injectors.map(x => x.default || x);
 
           app.get(
             page.path,

@@ -25,7 +25,7 @@ var onWindowIntl = function () {
 
   const { addLocaleData } = require('react-intl');
   [
-${(i18n.locales : [])
+${(i18n.locales)
     .map(locale => `    require('react-intl/locale-data/${locale}')`)
     .join(',\n')}
   ].forEach((locale) => addLocaleData(locale));
@@ -45,13 +45,13 @@ var ensureFetch = function (cb) {
 var ensureIntl = function (cb) {
   if (typeof window.Intl === 'undefined') {
     require.ensure([
-      'intl'${(i18n.locales : []).length > 0 ? ',' : ''}
-  ${(i18n.locales : [])
+      'intl'${(i18n.locales).length > 0 ? ',' : ''}
+  ${(i18n.locales)
     .map(locale => `    'intl/locale-data/jsonp/${locale}.js'`)
     .join(',\n')}
     ], (require) => {
       require('intl');
-  ${(i18n.locales : [])
+  ${(i18n.locales)
     .map(locale => `    require('intl/locale-data/jsonp/${locale}.js');`)
     .join('\n')}
       cb();

@@ -1,7 +1,6 @@
 // Note: Do not use 'import's in this file since babel would hoist them before instrumentation
 // Bootstrap environment
-require('babel-register');
-require('babel-polyfill');
+require('@babel/register');
 require('isomorphic-fetch');
 
 const constants = require('../constants');

@@ -1,7 +1,7 @@
-# Thunderball hello world
-> Example Thunderball project for demo and integration testing
+# Thunderball Hello World
+> Thunderball Example App
 
-_This client application was generated from the [thunderball](https://github.com/angieslist/thunderball.io/packages/generator-thunderball) generator._
+_This client application was generated from the [thunderball](https://github.com/angieslist/thunderball.io) generator._
 
 ## Quick start
 Install dependencies:

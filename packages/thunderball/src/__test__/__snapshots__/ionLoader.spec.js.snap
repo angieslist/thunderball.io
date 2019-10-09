@@ -6,7 +6,7 @@ Array [
     "config": Object {
       "browser": Object {
         "page": Object {
-          "createRoutes": "./browser/createRoutes",
+          "createRoutes": "./createRoutes",
           "injectors": Array [
             "../../appInjectors",
           ],
@@ -17,6 +17,47 @@ Array [
     },
     "dir": "home",
     "name": "home",
+  },
+  Object {
+    "config": Object {
+      "browser": Object {
+        "page": Object {
+          "createRoutes": "./createRoutes",
+          "injectors": Array [
+            "../../appInjectors",
+            "./injectors",
+          ],
+          "path": "/todos*",
+          "props": Object {
+            "basePath": "/todos",
+          },
+        },
+      },
+      "name": "todos",
+    },
+    "dir": "todos",
+    "name": "todos",
+  },
+  Object {
+    "config": Object {
+      "browser": Object {
+        "page": Object {
+          "createRoutes": "./createRoutes",
+          "injectors": Array [
+            "../../appInjectors",
+            "./injectors",
+          ],
+          "path": "/todo-answers*",
+          "props": Object {
+            "basePath": "/todo-answers",
+          },
+        },
+      },
+      "middleware": "./api/middleware",
+      "name": "todos-answers",
+    },
+    "dir": "todos-answers",
+    "name": "todos-answers",
   },
 ]
 `;

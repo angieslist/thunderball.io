@@ -1,21 +1,21 @@
 {
   "presets": [
-    "react",
-    "es2015",
-    "stage-0"
+    "@babel/preset-react",
+    [
+      "@babel/preset-env",
+    ],
   ],
   "plugins": [
     [
-      "transform-runtime", {
-        "polyfill": false,
+      "@babel/plugin-transform-runtime", {
         "regenerator": false
-      }
+      },
     ],
     "add-module-exports",
-    "lodash",
     "jsx-control-statements",
     [
-      "transform-imports", {
+      "transform-imports",
+      {
         "react-router": {
           "transform": "react-router/lib/${member}",
           "preventFullImport": true
@@ -26,5 +26,12 @@
         }
       }
     ]
-  ]
+  ],
+  "env": {
+    "production": {
+      "plugins": [
+        "lodash"
+      ]
+    }
+  }
 }

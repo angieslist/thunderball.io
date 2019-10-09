@@ -14,7 +14,7 @@ Thunderball is initially targeting web applications. However, the build tools an
 
 The easiest way to get started is with our yeoman generator. Open your terminal and type:
 
-```
+```sh
 # install yeoman
 npm install -g yo
 
@@ -48,7 +48,7 @@ Unlike other "bootstrapping" frameworks out there for ReactJs applications, Thun
 * [redux-persist](https://github.com/rt2zz/redux-persist): Persists store data between page loads
 * [redux-logger](https://github.com/evgenyrodionov/redux-logger): Logging middleware used in development to show when actions are fired and their data in the chrome developer console window
 * [react-router](https://github.com/reactjs/react-router): Routing of sub-pages in a single-page-application
-* [react-helmet](https://github.com/nfl/react-helmet): Give React components the ability to update pieces of the `<head>` element including things like the pages `title`.
+* [react-helmet-async](https://github.com/staylor/react-helmet-async): Give React components the ability to update pieces of the `<head>` element including things like the pages `title`.
 * [react-intl](https://github.com/yahoo/react-intl): Provides components used to format numbers, currency, strings, dates, and times for localization or pluralization.
 
 ### Server

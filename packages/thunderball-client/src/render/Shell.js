@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import { Router, RouterContext } from 'react-router';
 import { IntlProvider } from 'react-intl';
+import { HelmetProvider } from 'react-helmet-async';
 
 // Shell of the body of the document
 // This is called by client-side and server-side
@@ -17,25 +18,27 @@ class Shell extends React.Component {
   }
 
   render() {
-    const { store, defaultLocale = 'en' } = this.props;
+    const { store, defaultLocale = 'en', helmetContext } = this.props;
 
     return (
-      <Provider store={store}>
-        <IntlProvider
-          defaultLocale={defaultLocale}
-          initialNow={new Date()}
-          key={defaultLocale} // https://github.com/yahoo/react-intl/issues/234
-          locale={defaultLocale}
-        >
-          {
-            process.env.IS_BROWSER ?
-              <Router history={this.props.history}>
-                {this.props.routes}
-              </Router>
-              : <RouterContext {...this.props.renderProps} />
-          }
-        </IntlProvider>
-      </Provider>
+      <HelmetProvider context={helmetContext}>
+        <Provider store={store}>
+          <IntlProvider
+            defaultLocale={defaultLocale}
+            initialNow={new Date()}
+            key={defaultLocale} // https://github.com/yahoo/react-intl/issues/234
+            locale={defaultLocale}
+          >
+            {
+              process.env.IS_BROWSER ?
+                <Router history={this.props.history}>
+                  {this.props.routes}
+                </Router>
+                : <RouterContext {...this.props.renderProps} />
+            }
+          </IntlProvider>
+        </Provider>
+      </HelmetProvider>
     );
   }
 }
@@ -44,6 +47,7 @@ Shell.propTypes = {
   store: PropTypes.object,
   pageProps: PropTypes.object,
   defaultLocale: PropTypes.string,
+  helmetContext: PropTypes.object,
 
   // client side render
   injectors: PropTypes.array,

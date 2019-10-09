@@ -3,13 +3,35 @@
 exports[`homeIon Get / (HomeView) returns the page 1`] = `
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title data-react-helmet="true">
+    <title data-rh="true">
+      Home - Thunderball Hello World
     </title>
-    <link href="/assets/home-TEST-HASH.css"
+    <link data-rh="true"
+          rel="shortcut icon"
+          type="image/png"
+          href="/assets/fb8bTEST-CHECKSUMe246c3363bfcc4f601.png"
+    >
+    <link data-rh="true"
+          rel="stylesheet"
+          href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic"
+    >
+    <link data-rh="true"
+          rel="stylesheet"
+          href="//cdn.rawgit.com/necolas/TEST-HASH.css/master/TEST-HASH.css"
+    >
+    <link data-rh="true"
+          rel="stylesheet"
+          href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css"
+    >
+    <link href="/assets/commons-TEST-HASH.css"
           rel="stylesheet"
           key="0"
+    >
+    <link href="/assets/home-TEST-HASH.css"
+          rel="stylesheet"
+          key="1"
     >
   </head>
   <body>
@@ -18,12 +40,33 @@ exports[`homeIon Get / (HomeView) returns the page 1`] = `
     </script>
     <div id="app">
       <div data-reactroot>
-        <div>
-          <h1>
-            Welcome to Thunderball hello world.
-          </h1>
-          <div>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vehicula laoreet sem, eget blandit eros dapibus id. Nam et metus nec elit placerat molestie. Etiam ultricies semper finibus. Maecenas efficitur risus elit. Sed ac felis vulputate, ornare neque ut, tempor dui. Sed efficitur auctor est quis faucibus. Quisque venenatis ornare tempus. Integer odio odio, fringilla vitae urna et, dapibus posuere felis. Aenean tristique semper erat, ac finibus augue pharetra eget. Mauris efficitur turpis vitae ante suscipit molestie.
+        <div class="container">
+          <div class="row">
+            <div class="column">
+              <div>
+                <div>
+                  <h1>
+                    Welcome to Thunderball Hello World
+                  </h1>
+                  <p>
+                    This is an example of what you can do with Thunderball to help you get started.
+                  </p>
+                  <h2>
+                    Other Thunderball Ions in this app
+                  </h2>
+                  <p>
+                    You can add separate React apps as Thunderball ions
+                  </p>
+                  <ul>
+                    <li>
+                      <a href="/todos">
+                        TODO App
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

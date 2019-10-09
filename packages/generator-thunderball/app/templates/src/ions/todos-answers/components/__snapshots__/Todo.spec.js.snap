@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Todo marks as checked when completed 1`] = `
+<div>
+  <input
+    checked={true}
+    id="todo-123"
+    onChange={[MockFunction]}
+    type="checkbox"
+  />
+  <label
+    className="label-inline"
+    htmlFor="todo-123"
+  >
+    Test todo
+  </label>
+</div>
+`;
+
+exports[`Todo renders without crashing 1`] = `
+<div>
+  <input
+    checked={false}
+    id="todo-123"
+    onChange={[MockFunction]}
+    type="checkbox"
+  />
+  <label
+    className="label-inline"
+    htmlFor="todo-123"
+  >
+    Test todo
+  </label>
+</div>
+`;

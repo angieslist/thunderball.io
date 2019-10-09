@@ -3,6 +3,7 @@ node_modules/
 npm-debug.log
 test-report.xml
 test-results.xml
+junit.xml
 jest_0/
 .idea/
 *.iml
@@ -12,6 +13,7 @@ build-info.json
 .DS_Store
 lerna-debug.log
 coverage/
+reports/
 typings/
 _book/
 package-lock.json

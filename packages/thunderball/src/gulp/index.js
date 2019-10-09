@@ -17,8 +17,6 @@ gulpTasks.config.help = `
   Dev Tasks
     - "gulp" or "npm start": run app in development mode (with watch)
     - "gulp -p": run app in production mode (with watch)
-    - "gulp lint": run static code analysis
-    - "gulp lint --fix": run fixing of some code issues
 
   Production Tasks
     - "gulp build -p": build app for production
@@ -29,7 +27,7 @@ gulpTasks.config.help = `
 const args = yargs.alias('p', 'production').argv;
 
 gulp.task('build-webpack', webpackBuild);
-gulp.task('build', ['clean', 'lint', 'build-webpack', 'server-static-files', 'static-ions', 'build-info']);
+gulp.task('build', ['clean', 'build-webpack', 'server-static-files', 'static-ions', 'build-info']);
 
 gulp.task('server-static-files', () => {
   gulp.src(`${gulpTasks.config.browserFilesLocation}/**/*.js`)
@@ -51,11 +49,10 @@ gulp.task('static-ions', () => {
 
 gulp.task('server-hot', bg('node', path.resolve(__dirname, '../webpack/server')));
 
-gulp.task('server', ['server-hot', 'lint', 'server-static-files', 'build-info'], () => {
+gulp.task('server', ['server-hot', 'server-static-files', 'build-info'], () => {
   nodemon({
     watch: ['src/**/*.*', '!*.generated.js'],
     script: 'index.js',
-    tasks: ['lint', 'server-static-files'],
   }).on('restart', () => {
     console.log('restarted!');
   });

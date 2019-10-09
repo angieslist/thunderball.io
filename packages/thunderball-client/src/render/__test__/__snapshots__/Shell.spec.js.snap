@@ -2,54 +2,62 @@
 
 exports[`Shell renders  1`] = `
 <Provider
-  store={
-    Object {
-      "dispatch": [MockFunction],
-      "getState": [MockFunction],
-      "testStore": true,
-    }
-  }
+  context={Object {}}
 >
-  <IntlProvider
-    defaultLocale="en"
-    initialNow={2016-01-01T00:00:00.000Z}
-    key="en"
-    locale="en"
+  <Provider
+    store={
+      Object {
+        "dispatch": [MockFunction],
+        "getState": [MockFunction],
+        "testStore": true,
+      }
+    }
   >
-    <RouterContext
-      createElement={[Function]}
-      testRenderProps={true}
-    />
-  </IntlProvider>
+    <IntlProvider
+      defaultLocale="en"
+      initialNow={2016-01-01T00:00:00.000Z}
+      key="en"
+      locale="en"
+    >
+      <RouterContext
+        createElement={[Function]}
+        testRenderProps={true}
+      />
+    </IntlProvider>
+  </Provider>
 </Provider>
 `;
 
 exports[`Shell renders in browser 1`] = `
 <Provider
-  store={
-    Object {
-      "dispatch": [MockFunction],
-      "getState": [MockFunction],
-      "testStore": true,
-    }
-  }
+  context={Object {}}
 >
-  <IntlProvider
-    defaultLocale="en"
-    initialNow={2016-01-01T00:00:00.000Z}
-    key="en"
-    locale="en"
-  >
-    <Router
-      history={
-        Object {
-          "testHistory": true,
-        }
+  <Provider
+    store={
+      Object {
+        "dispatch": [MockFunction],
+        "getState": [MockFunction],
+        "testStore": true,
       }
-      render={[Function]}
+    }
+  >
+    <IntlProvider
+      defaultLocale="en"
+      initialNow={2016-01-01T00:00:00.000Z}
+      key="en"
+      locale="en"
     >
-      <Component />
-    </Router>
-  </IntlProvider>
+      <Router
+        history={
+          Object {
+            "testHistory": true,
+          }
+        }
+        render={[Function]}
+      >
+        <Component />
+      </Router>
+    </IntlProvider>
+  </Provider>
 </Provider>
 `;

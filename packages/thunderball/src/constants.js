@@ -11,6 +11,8 @@ try {
   // ignore just use empty config
   console.log('Could not load config from: "src/config.js", using empty configuration...');
 }
+// support ES modules or commonjs
+APP_CONFIG = APP_CONFIG.default || APP_CONFIG;
 const APP_IONS_DIR = path.join(
   ABSOLUTE_BASE,
   _.get(APP_CONFIG, 'ionsDir') || _.get(APP_CONFIG, 'modulesDir') || 'src/ions');

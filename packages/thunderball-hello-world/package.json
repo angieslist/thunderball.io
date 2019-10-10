@@ -1,7 +1,7 @@
 {
   "name": "thunderball-hello-world",
   "private": true,
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Thunderball Example App",
   "main": "index.js",
   "scripts": {
@@ -24,8 +24,8 @@
     "recompose": "^0.25.1",
     "redux": "^3.6.0",
     "redux-thunk": "^2.3.0",
-    "thunderball": "^0.2.0",
-    "thunderball-client": "^0.2.0"
+    "thunderball": "^0.3.0",
+    "thunderball-client": "^0.3.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
@@ -39,8 +39,8 @@
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-jsx-control-statements": "^2.2.1",
     "eslint-plugin-react": "^7.10.0",
-    "eslint-plugin-thunderball": "^0.1.2",
-    "generator-thunderball": "^0.2.0",
+    "eslint-plugin-thunderball": "^0.3.0",
+    "generator-thunderball": "^0.3.0",
     "gulp": "^3.9.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.1.0",

@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/angieslist/thunderball.io/compare/v0.2.0...v0.3.0) (2019-10-10)
+
+
+### Bug Fixes
+
+* Resolve random CircleCI test failures and slowness ([230597c](https://github.com/angieslist/thunderball.io/commit/230597c))
+
+
+### Features
+
+* Babel 7 ([028bf7f](https://github.com/angieslist/thunderball.io/commit/028bf7f))
+* react-helmet-async ([4afab84](https://github.com/angieslist/thunderball.io/commit/4afab84))
+* Todo list example ([c7b7486](https://github.com/angieslist/thunderball.io/commit/c7b7486))
+
+
+### BREAKING CHANGES
+
+* Upgrade to Babel 7.
+Clients may need to upgrade dependencies (e.g. Jest).
+See thunderball-hello-world for examples.
+* react-helmet-async replaces react-helmet
+See https://github.com/staylor/react-helmet-async/blob/master/README.md
+for usage or refer to the example in thunderball-hello-world
+
+
+
+
 <a name="0.2.0"></a>
 # [0.2.0](https://github.com/angieslist/thunderball.io/compare/v0.1.2...v0.2.0) (2019-01-09)
 

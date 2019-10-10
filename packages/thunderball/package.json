@@ -1,6 +1,6 @@
 {
   "name": "thunderball",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "license": "Apache-2.0",
   "main": "lib/index",
   "files": [
@@ -73,7 +73,7 @@
     "strip-color": ">=0.1.0",
     "style-loader": "^0.16.1",
     "text-table": "^0.2.0",
-    "thunderball-client": "^0.2.0",
+    "thunderball-client": "^0.3.0",
     "url-loader": "^0.5.8",
     "webpack": "^3.12.0",
     "webpack-bundle-size-analyzer": "^2.7.0",

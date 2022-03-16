@@ -1,3 +1,12 @@
+<!-- BEGIN MIGRATION NOTICE -->
+# Migration Notice
+This repository has been migrated to https://gitlab.com/angi1/angieslist/thunderball.io
+The repositories Circle CI configuration was not ported to Gitlab CI because this repository has not had any recent commits in the past year.
+<!-- END MIGRATION NOTICE -->
+
+
+
+
 # Thunderball
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
 
